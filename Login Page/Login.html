@@ -1,14 +1,70 @@
 <!DOCTYPE html>
 
-<html lang="en" > 
+<html lang="en">
+
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title> Garex Sneakorum Login Page </title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    
+    <style>
+        .center {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+
+        }
+
+        .login-form {
+            width: 340px;
+            margin: 50px auto;
+        }
+
+        .login-form form {
+            margin-bottom: 15px;
+            background: #f7f7f7;
+            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+        }
+
+        .login-form h2 {
+            margin: 0 0 15px;
+        }
+
+        .form-control,
+        .btn {
+            min-height: 38px;
+            border-radius: 2px;
+        }
+
+        .btn {
+            font-size: 15px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <body>
-    <h1>Welcome to Garex's Sneokorum!</h1>
+    <h1 style="text-align:center">Welcome to Garex's Sneokorum!</h1>
 
-    <img src="Garex-Sneakorum-Logo.png" height="300" alt="Garex Sneakorum Logo">
+    <img src="Garex-Sneakorum-Logo.png" height="300" alt="Garex Sneakorum Logo" class="center">
+
+    <form>
+        <h2 class="text-center">Log in</h2>
+
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Username" required="required">
+        </div>
+
+        <div class="form-group">
+            <input type="password" class="form-control" placeholder="Password" required="required">
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block">Log in</button>
+        </div>
+
 
 </body>
 
