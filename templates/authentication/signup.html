@@ -138,7 +138,8 @@
     <img src="Garex-Sneakorum-Logo.png" height="250" alt="Garex Sneakorum Logo" class="center">
 
     <div class="signup-form">
-        <form>
+        <form action="/signup" method="post">
+            {% csrf_token %}
             <h2>Sign Up</h2>
             <p>Please fill in this form to create an account!</p>
             <hr>
