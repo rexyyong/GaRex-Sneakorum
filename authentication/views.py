@@ -10,11 +10,13 @@ def home(request):
 
 def signup(request):
     if request.method == "POST":
-        fname = request.POST['first_name']
-        lname = request.POST['last_name']
-        username = request.POST['email']
-        password = request.POST['password']
-        cpassword = request.POST['confirm_password']
+        # username = request.POST.get('username')
+        fname = request.POST['fname']
+        lname = request.POST['lname']
+        username = request.POST['username']
+        email = request.POST['email']
+        password = request.POST['pass1']
+        cpassword = request.POST['pass2']
 
         myuser = User.objects.create_user(username, password, fname)
         #myuser.first_name = fname
