@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import User
@@ -18,8 +18,12 @@ def signup(request):
         password = request.POST['pass1']
         cpassword = request.POST['pass2']
 
-        myuser = User.objects.create_user(username, password, fname)
-        #myuser.first_name = fname
+        if password != cpassword:
+            messages.error(request, "passwords dont match")
+            return redirect('signup')
+
+        myuser = User.objects.create_user(username, email, password)
+        myuser.first_name = fname
         myuser.last_name = lname
         myuser.save()
 
@@ -29,10 +33,10 @@ def signup(request):
 
 def signin(request):
     if request.method == "POST":
-        email = request.POST['email']
+        username = request.POST['username']
         password = request.POST['password']
 
-        user = authenticate(email=email, password=password)
+        user = authenticate(username=username, password=password)
 
         if user is not None:
             login(request, user)
@@ -40,9 +44,11 @@ def signin(request):
             return render(request, "authentication/index.html", {'fname':fname})
         else:
             messages.error(request, "Wrong email or password")
-            return redirect('home')
+            return redirect('signin')
 
     return render(request, "authentication/signin.html")
 
 def signout(request):
-    pass
+    logout(request)
+    messages.success(request, "Logged out Successfully")
+    return render(request, "authentication/index.html")
