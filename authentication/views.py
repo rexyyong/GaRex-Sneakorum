@@ -5,8 +5,11 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 
 # Create your views here.
-def home(request):
+def index(request):
     return render(request, "authentication/index.html")
+
+def home(request):
+    return render(request, "authentication/home.html")
 
 def signup(request):
     if request.method == "POST":
@@ -41,9 +44,9 @@ def signin(request):
         if user is not None:
             login(request, user)
             fname = user.first_name
-            return render(request, "authentication/index.html", {'fname':fname})
+            return render(request, "authentication/home.html", {'fname':fname})
         else:
-            messages.error(request, "Wrong email or password")
+            messages.info(request, "Wrong email or password")
             return redirect('signin')
 
     return render(request, "authentication/signin.html")
