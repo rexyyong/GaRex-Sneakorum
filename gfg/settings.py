@@ -15,12 +15,13 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-#static directory path
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
+import dotenv
+dotenv.load_dotenv() #load environmemnt variables from .env
+import environ
 
-]
 
+env = environ.Env()
+environ.Env.read_env()
 
 
 # Quick-start development settings - unsuitable for production
@@ -30,9 +31,9 @@ STATICFILES_DIRS = [
 SECRET_KEY = 'django-insecure-q-pz$%h7c)wbh0jx_b0-2n5+5)%758u*kkf8&h&gtx+h-(cb2*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -79,13 +80,22 @@ WSGI_APPLICATION = 'gfg.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+'''
 
+#Render postgreSQL database (Live)
+import dj_database_url
+
+DATABASES = {
+    'default': dj_database_url.parse(env('DATABASE_URL'))
+
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -121,8 +131,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
+
 STATIC_URL = '/static/'
 
+import os
+#static directory path
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
