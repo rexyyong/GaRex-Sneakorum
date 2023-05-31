@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 
 <html lang="en">
@@ -135,7 +136,7 @@
 <body class="gradient-custom">
     <h1 style="text-align:center">Welcome to Garex's Sneokorum!</h1>
 
-    <img src="Garex-Sneakorum-Logo.png" height="250" alt="Garex Sneakorum Logo" class="center">
+    <img src="{% static 'images/Garex-Sneakorum-Logo.png' %}" height="250" alt="Garex Sneakorum Logo" class="center">
 
     <div class="signup-form">
         <form action="/signup" method="post">

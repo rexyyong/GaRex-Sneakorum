@@ -1,0 +1,11 @@
+Allowing execution policy on powershell
+Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
+
+To start venv in windows powershell, go to Garex-Sneakorum directory
+venv\Scripts\Activate.ps1 
+
+To deactivate venv 
+deactivate
+
+To run python server in venv
+python mange.py runserver
