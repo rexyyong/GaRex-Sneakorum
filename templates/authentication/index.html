@@ -18,14 +18,16 @@
     <h3>Welcome</h3>
 
     {% if user.is_authenticated %}
-    <h3>Hello {{ fname }}</h3>
-    <h4>You are succesfully logged in</h4>
-    <button type="submit"><a href="/signout">SignOut</a></button>
+     <meta http-equiv = "refresh" content = "3; url = /signin" />
+<!--    <h3>Hello {{ fname }}</h3>-->
+<!--    <h4>You are succesfully logged in</h4>-->
+<!--    <button type="submit"><a href="/signout">SignOut</a></button>-->
 
     {% else %}
-    <h5>Hello, please signin or signup</h5>
-    <button type="submit"><a href="/signup">SignUp</a></button>
-    <button type="submit"><a href="/signin">SignIn</a></button>
+     <meta http-equiv = "refresh" content = "3; url = /signup" />
+<!--    <h5>Hello, please signin or signup</h5>-->
+<!--    <button type="submit"><a href="/signup">SignUp</a></button>-->
+<!--    <button type="submit"><a href="/signin">SignIn</a></button>-->
     {% endif %}
 
 </body>
