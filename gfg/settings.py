@@ -32,7 +32,7 @@ environ.Env.read_env()
 SECRET_KEY = 'django-insecure-q-pz$%h7c)wbh0jx_b0-2n5+5)%758u*kkf8&h&gtx+h-(cb2*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -143,7 +143,7 @@ import os
 #static directory path
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'forum-react-app/build/static'),
-    os.path.join(BASE_DIR, 'static')
+    os.path.join(BASE_DIR, 'newstatic')
 
 ]
 
