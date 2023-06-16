@@ -18,6 +18,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 import dotenv
 dotenv.load_dotenv() #load environmemnt variables from .env
 import environ
+import os
 
 
 env = environ.Env()
@@ -63,7 +64,10 @@ ROOT_URLCONF = 'gfg.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ["templates"],
+        'DIRS': [
+            "templates" , 
+            os.path.join(BASE_DIR , 'forum-react-app/build')
+            ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -138,6 +142,7 @@ STATIC_URL = '/static/'
 import os
 #static directory path
 STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'forum-react-app/build/static'),
     os.path.join(BASE_DIR, 'static')
 
 ]
