@@ -33,7 +33,7 @@ const ForumHome = () => {
         <div className="vh-100 gradient-custom">
             <GarexSneakorumLogo />
             <GarexNavbar />
-            <div style={{ marginTop: 100 }}>
+            <div style={{ marginTop: 20 }}>
 
                 <Grid item xs={12} md={6} >
                     <div className='d-flex justify-content-between mb-3'>
