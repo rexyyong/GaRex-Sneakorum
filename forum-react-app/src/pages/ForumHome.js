@@ -11,7 +11,11 @@ import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 
 import NewThreadForm from "../components/NewThreadForm";
+import GarexSneakorumLogo from "../components/GarexSneakorumLogo";
+import GarexNavbar from "../components/GarexNavbar";
 
+//css stuff
+import "./ForumHome.css"
 
 const ForumHome = () => {
 
@@ -26,21 +30,25 @@ const ForumHome = () => {
 
 
     return (
-        <div style={{ marginTop: 100 }}>
+        <div className="vh-100 gradient-custom">
+            <GarexSneakorumLogo />
+            <GarexNavbar />
+            <div style={{ marginTop: 100 }}>
 
-            <Grid item xs={12} md={6} >
-                <div className='d-flex justify-content-between mb-3'>
-                    <Typography variant="h5" >Latest Thread</Typography>
-                    <NewThreadForm />
+                <Grid item xs={12} md={6} >
+                    <div className='d-flex justify-content-between mb-3'>
+                        <Typography variant="h5" >Latest Thread</Typography>
+                        <NewThreadForm />
 
-                </div>
+                    </div>
 
-                <Item>
+                    <Item>
 
-                </Item>
+                    </Item>
 
-            </Grid>
+                </Grid>
 
+            </div>
         </div>
 
     )
