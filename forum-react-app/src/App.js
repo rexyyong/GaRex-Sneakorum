@@ -1,9 +1,12 @@
 import logo from './logo.svg';
 import './App.css';
-import Forum from './pages/forum'
+import ForumHome from './pages/ForumHome';
 
 function App() {
-    return <Forum />;
+    return (
+        <ForumHome />
+
+    );
 }
 
 export default App;
