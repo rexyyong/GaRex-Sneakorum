@@ -9,8 +9,6 @@ function GarexSneakorumLogo() {
                 alt="Garex Sneakorum Logo"
                 className="center"
             />
-
-
         </div>
     )
 }
