@@ -8,7 +8,7 @@ function GarexNavbar() {
                 <div className="topnav">
                     <ul>
                         <li>
-                            <a href="#home">Home</a>
+                            <a href="/home">Home</a>
                         </li>
                         <li>
                             <a href="#AboutUs">About Us</a>
