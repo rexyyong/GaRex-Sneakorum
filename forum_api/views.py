@@ -8,12 +8,13 @@ import json
 from rest_framework import status
 
 # Create your views here.
-@api_view(['POST'])
+
+@api_view(['GET'])
 def getThreads(request):
     # set pagination
     paginator = PageNumberPagination()
     paginator.page_size = 15
-    threads = Thread.objects.all().order_by('-updated')
+    threads = Thread.objects.all()
     result_page = paginator.paginate_queryset(threads, request)
     serializer = ThreadSerializer(result_page, many=True)
 
