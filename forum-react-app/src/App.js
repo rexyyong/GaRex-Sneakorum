@@ -14,11 +14,11 @@ function App() {
                 <Route path="/forum" element={<ForumHome />} />
             </Routes>
         </Router>
-        // <div>
-        //     {/* <GarexSneakorumLogo /> */}
-        //     {/* <GarexNavbar /> */}
-        //     <ForumHome />
-        // </div>
+//         <div>
+//             { <GarexSneakorumLogo /> }
+//             { <GarexNavbar /> }
+//             <ForumHome />
+//         </div>
 
     );
 }

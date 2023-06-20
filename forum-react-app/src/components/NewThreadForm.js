@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useEffect, useContext } from 'react';
+import Cookies from 'js-cookie';
 
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
@@ -27,8 +28,14 @@ const buttonTheme = createTheme({
 const NewThreadForm = () => {
 
     //for dialog box form
-    const [title, setTitle] = useState('');
-    const [content, setContent] = useState('');
+    const [thread, setThread] = useState({
+        subject: "",
+        content: "",
+    })
+    // const [title, setTitle] = useState('');
+    // const [content, setContent] = useState('');
+
+
 
     //isOpen is the state, setIsOpen is the function to change the state, for popping up dialog box
     const [open, setIsOpen] = useState(false);
@@ -46,18 +53,36 @@ const NewThreadForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         // Perform any desired actions with the submitted data
-        console.log('Title:', title);
-        console.log('Content:', content);
+        console.log('Subject:', thread.subject);
+        console.log('Content:', thread.content);
 
         //clear the form
-        setTitle('');
-        setContent('');
-
+        setThread('');
         // Close the dialog
         handleClose();
     };
 
-
+    let handleThread = async (event) => {
+        event.preventDefault();
+        const csrftoken = Cookies.get('csrftoken');
+        console.log("test1")
+        const response = await fetch(`/forum_api/createThread/`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken,
+            },
+            body: JSON.stringify(thread)
+        })
+        console.log("test2")
+        const data = await response.json()
+        console.log("test3")
+        console.log(data)
+        //clear the form
+        setThread('');
+        // Close the dialog
+        handleClose();
+  }
 
     return (
         <div>
@@ -76,18 +101,18 @@ const NewThreadForm = () => {
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Create New Thread</DialogTitle>
                 <DialogContent>
-                    <form onSubmit={handleSubmit} id="NewThreadForm">
+                    <form onSubmit={handleThread} id="NewThreadForm">
                         <TextField
-                            label="Title"
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)}
+                            label="Subject"
+                            value={thread.subject || ""}
+                            onChange={(e) => setThread({...thread, subject: e.target.value})}
                             fullWidth
                             required
                         />
                         <TextField
                             label="Content"
-                            value={content}
-                            onChange={(e) => setContent(e.target.value)}
+                            value={thread.content || ""}
+                            onChange={(e) => setThread({...thread, content: e.target.value})}
                             fullWidth
                             multiline
                             rows={4}
