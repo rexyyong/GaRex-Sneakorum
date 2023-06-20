@@ -4,13 +4,21 @@ import ForumHome from './pages/ForumHome';
 import GarexSneakorumLogo from './components/GarexSneakorumLogo';
 import GarexNavbar from './components/GarexNavbar';
 
+import { BrowserRouter as Router, Switch, Route, Routes } from 'react-router-dom';
+
 function App() {
     return (
-        <div>
-            {/* <GarexSneakorumLogo /> */}
-            {/* <GarexNavbar /> */}
-            <ForumHome />
-        </div>
+
+        <Router>
+            <Routes>
+                <Route path="/forum" element={<ForumHome />} />
+            </Routes>
+        </Router>
+        // <div>
+        //     {/* <GarexSneakorumLogo /> */}
+        //     {/* <GarexNavbar /> */}
+        //     <ForumHome />
+        // </div>
 
     );
 }

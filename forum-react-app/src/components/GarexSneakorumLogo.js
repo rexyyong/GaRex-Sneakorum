@@ -1,4 +1,5 @@
 import React from 'react'
+import './GarexSneakorumLogo.css'
 
 function GarexSneakorumLogo() {
     return (

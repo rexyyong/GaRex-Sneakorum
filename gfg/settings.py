@@ -143,7 +143,7 @@ import os
 #static directory path
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'forum-react-app/build/static'),
-    os.path.join(BASE_DIR, 'newstatic')
+    os.path.join(BASE_DIR, 'newstatic'),
 
 ]
 
