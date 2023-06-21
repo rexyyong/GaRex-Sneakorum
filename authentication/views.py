@@ -55,3 +55,7 @@ def signout(request):
     logout(request)
     messages.success(request, "Logged out Successfully")
     return render(request, "authentication/index.html")
+
+
+def react_app(request):
+    return render(request, "index.html")

@@ -8,5 +8,5 @@ urlpatterns = [
     path('signin', views.signin, name="signin"),
     path('signout', views.signin, name="signout"),
     path('home', views.home, name="home"),
-    #path('forum', views.react_app, name='forum'),
+    path('forum', views.react_app, name='forum'),
 ]
