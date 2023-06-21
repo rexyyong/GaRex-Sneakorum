@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import ForumHome from './pages/ForumHome';
+import Thread from './pages/Thread';
 import GarexSneakorumLogo from './components/GarexSneakorumLogo';
 import GarexNavbar from './components/GarexNavbar';
 
@@ -12,13 +13,14 @@ function App() {
         <Router>
             <Routes>
                 <Route path="/forum" element={<ForumHome />} />
+                <Route path="/threads/:id" element={<Thread />} />
             </Routes>
         </Router>
-//         <div>
-//             { <GarexSneakorumLogo /> }
-//             { <GarexNavbar /> }
-//             <ForumHome />
-//         </div>
+        //         <div>
+        //             { <GarexSneakorumLogo /> }
+        //             { <GarexNavbar /> }
+        //             <ForumHome />
+        //         </div>
 
     );
 }
