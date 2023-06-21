@@ -7,8 +7,9 @@ import ListItem from '@mui/material/ListItem';
 import Divider from '@mui/material/Divider';
 import ListItemText from '@mui/material/ListItemText';
 
-
 const ThreadListItem = ({thread}, {index}) => {
+console.log(thread.id)
+console.log("test")
   return (
     <div className="thread-list-item">
       <List sx={{ width: '100%', bgcolor: 'background.paper' }}>

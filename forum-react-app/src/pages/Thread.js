@@ -22,14 +22,26 @@ const Thread = () => {
     // extract thread id
     let params = useParams()
     let threadID = params.id
+//    console.log(threadID)
 
     // initalize thread and posts component state
     let [thread, setThread] = useState(null)
 
+  // trigger thread update
+  useEffect(() => {
+      let getThread = async () => {
+          let response = await fetch(`/forum_api/threads/${threadID}`)
+          let data = await response.json()
+          setThread(data)
+
+      }
+
+      getThread()
+  }, [threadID])
     // trigger thread update
     useEffect(() => {
         let getThread = async () => {
-            let response = await fetch(`/api/threads/${threadID}`)
+            let response = await fetch(`/forum_api/threads/${threadID}`)
             let data = await response.json()
             setThread(data)
 

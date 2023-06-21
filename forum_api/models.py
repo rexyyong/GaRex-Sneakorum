@@ -8,4 +8,4 @@ class Thread(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'Thread {self.subject} '
+        return f'Thread ID: {self.pk} Subject: {self.subject} '

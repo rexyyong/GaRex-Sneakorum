@@ -22,17 +22,14 @@ def getThreads(request):
 
 @api_view(['GET'])
 def getThread(request, thread_id):
-    pass
-    # try:
-    #     thread = Thread.objects.get(pk=thread_id)
-    # except thread.DoesNotExist:
-    #     content = {"The Thread does not exist."}
-    #     return Response(content)
-    #
-    # thread = Thread.objects.get(pk=thread_id)
-    # serializer = ThreadSerializer(thread, many=False)
-    #
-    # return Response(serializer.data)
+    try:
+        thread = Thread.objects.get(pk=thread_id)
+    except thread.DoesNotExist:
+        content = {"The Thread does not exist."}
+        return Response(content)
+    serializer = ThreadSerializer(thread, many=False)
+
+    return Response(serializer.data)
 
 @api_view(['POST'])
 def createThread(request):

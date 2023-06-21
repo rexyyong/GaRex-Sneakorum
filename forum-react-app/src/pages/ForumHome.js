@@ -23,6 +23,26 @@ const ForumHome = () => {
     color: theme.palette.text.secondary,
   }));
 
+  useEffect(() => {
+      const getThreads = async () => {
+          // fetch the threads from api endpoint
+          const response = await fetch(`/forum_api/threads/?page=1`)
+
+          // parse the data in json
+          let data = await response.json()
+
+          // update the state of threads
+          setThreads(data.results)
+
+           // check if there is more threads
+           if (data.next === null) {
+            setHasMore(false)
+          }
+      }
+      getThreads()
+
+  }, [])
+
   const getMoreThreads = async () => {
       // fetch the threads from api endpoint
       const response = await fetch(`/forum_api/threads/?page=${page}`)
