@@ -10,18 +10,18 @@ import { BrowserRouter as Router, Switch, Route, Routes } from 'react-router-dom
 function App() {
     return (
 
-        <Router>
-            <Routes>
-                <Route path="/forum" element={<ForumHome />} />
-                <Route path="/threads/:id" element={<Thread />} />
-            </Routes>
-        </Router>
-                // <div>
-                //     {/* { <GarexSneakorumLogo /> }
-                //     { <GarexNavbar /> } */}
-                //     {/* <ForumHome /> */}
-                //     <Thread />
-                // </div>
+        // <Router>
+        //     <Routes>
+        //         <Route path="/forum" element={<ForumHome />} />
+        //         <Route path="/threads/:id" element={<Thread />} />
+        //     </Routes>
+        // </Router>
+                <div>
+                    {/* { <GarexSneakorumLogo /> }
+                    { <GarexNavbar /> } */}
+                    {/* <ForumHome /> */}
+                    <Thread />
+                </div>
 
     );
 }
