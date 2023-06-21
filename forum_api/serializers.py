@@ -7,4 +7,5 @@ class ThreadSerializer(ModelSerializer):
         model = Thread
         fields = (
                     "subject",
-                    "content")
+                    "content",
+                    "created")

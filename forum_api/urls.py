@@ -3,6 +3,6 @@ from . import views
 
 urlpatterns = [
     path('threads/', views.getThreads, name='threads'),
-    path('threads/<int:thread_id>', views.getThreads, name='thread'),
+    path('threads/<int:thread_id>', views.getThread, name='thread'),
     path('createThread/', views.createThread, name='createThread'),
 ]

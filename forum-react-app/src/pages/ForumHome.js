@@ -23,30 +23,36 @@ const ForumHome = () => {
     color: theme.palette.text.secondary,
   }));
 
-  const fetchData = async () => {
-    try {
-      const response = await fetch(`/forum_api/threads/?page=${page}`);
-      const data = await response.json();
+  const getMoreThreads = async () => {
+      // fetch the threads from api endpoint
+      const response = await fetch(`/forum_api/threads/?page=${page}`)
+      // parse the data in json
+      let data = await response.json()
 
-      // Update the threads state with new data
-      setThreads((prevThreads) => [...prevThreads, ...data.results]);
+      console.log("fetching")
 
-      // Check if there are more threads to load
-      if (data.next === null) {
-        setHasMore(false);
+      return data.results
+  }
+
+  const getData = async () => {
+      // get more threads from next fetch
+      const moreThreads = await getMoreThreads()
+
+      // update the thread state by combining data
+      setThreads([...threads, ...moreThreads])
+
+      // check the fetch of last page, if yes, HasMore is false
+      if (moreThreads.length === 0 || moreThreads.length < 15) {
+          setHasMore(false)
       }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+      setPage(page + 1)
+  }
+
 
   useEffect(() => {
-    fetchData();
+    getData();
   }, [page]);
 
-  const handleLoadMore = () => {
-    setPage((prevPage) => prevPage + 1);
-  };
 
   return (
     <div className="vh-100 gradient-custom">
@@ -62,7 +68,7 @@ const ForumHome = () => {
           <Item>
             <InfiniteScroll
               dataLength={threads.length}
-              next={handleLoadMore}
+              next={getData}
               hasMore={hasMore}
               loader={<h4>Loading...</h4>}
               endMessage={<p>No more threads to load.</p>}

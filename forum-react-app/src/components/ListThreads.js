@@ -16,7 +16,7 @@ const ThreadListItem = ({thread}, {index}) => {
           <Link to = {`/threads/${thread.id}`} style={{ textDecoration: 'none', color: 'black' }}>
             <ListItemText
               primary={thread?.subject}
-            />
+              />
 
           </Link>
       </ListItem>
