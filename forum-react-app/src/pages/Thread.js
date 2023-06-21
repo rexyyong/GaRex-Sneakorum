@@ -15,6 +15,7 @@ import Card from '@mui/material/Card';
 
 import GarexNavbar from '../components/GarexNavbar';
 import GarexSneakorumLogo from '../components/GarexSneakorumLogo';
+import ReplyThreadForm from '../components/ReplyThreadForm';
 import './ForumHome.css'
 
 const Thread = () => {
@@ -74,6 +75,8 @@ const Thread = () => {
                     </Card>
 
                 </Container>
+
+                <ReplyThreadForm />
 
             </div>
         </div>
