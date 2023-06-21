@@ -13,6 +13,9 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import IconButton from '@mui/material/IconButton';
 import Card from '@mui/material/Card';
 
+import GarexNavbar from '../components/GarexNavbar';
+import GarexSneakorumLogo from '../components/GarexSneakorumLogo';
+import './ForumHome.css'
 
 const Thread = () => {
     // extract thread id
@@ -35,39 +38,44 @@ const Thread = () => {
     }, [threadID])
 
     return (
-        <div style={{ marginTop: 100 }}>
-            <Container>
-                <Card sx={{ minWidth: 300, marginTop: 3 }} elevation={3}>
-                    <CardContent>
-                        <Grid container justifyContent="space-between">
-                            <Typography sx={{ m: 1, p: 1 }} variant="h6" component="div">
-                                {thread?.subject}
+        <div className="vh-100 gradient-custom">
+            <GarexSneakorumLogo />
+            <GarexNavbar />
 
+            <div style={{ marginTop: 100 }}>
+                <Container>
+                    <Card sx={{ minWidth: 300, marginTop: 3 }} elevation={3}>
+                        <CardContent>
+                            <Grid container justifyContent="space-between">
+                                <Typography sx={{ m: 1, p: 1 }} variant="h6" component="div">
+                                    {thread?.subject}
+
+                                </Typography>
+
+                                <IconButton aria-label="settings">
+                                    <MoreVertIcon />
+                                </IconButton>
+                            </Grid>
+
+                            <Typography style={{ whiteSpace: 'pre-line' }} sx={{ m: 1, p: 1 }} variant="body1">
+                                {thread?.content}
                             </Typography>
 
-                            <IconButton aria-label="settings">
-                                <MoreVertIcon />
-                            </IconButton>
-                        </Grid>
+                        </CardContent>
 
-                        <Typography style={{ whiteSpace: 'pre-line' }} sx={{ m: 1, p: 1 }} variant="body1">
-                            {thread?.content}
-                        </Typography>
+                        <CardActions sx={{ marginBottom: 2, marginRight: 3 }}>
+                            <Grid container justifyContent="flex-end">
 
-                    </CardContent>
+                                <IconButton aria-label="share">
+                                    <ShareIcon />
+                                </IconButton>
+                            </Grid>
+                        </CardActions>
+                    </Card>
 
-                    <CardActions sx={{ marginBottom: 2, marginRight: 3 }}>
-                        <Grid container justifyContent="flex-end">
+                </Container>
 
-                            <IconButton aria-label="share">
-                                <ShareIcon />
-                            </IconButton>
-                        </Grid>
-                    </CardActions>
-                </Card>
-
-            </Container>
-
+            </div>
         </div>
     )
 

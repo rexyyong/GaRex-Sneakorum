@@ -16,11 +16,12 @@ function App() {
                 <Route path="/threads/:id" element={<Thread />} />
             </Routes>
         </Router>
-        //         <div>
-        //             { <GarexSneakorumLogo /> }
-        //             { <GarexNavbar /> }
-        //             <ForumHome />
-        //         </div>
+                // <div>
+                //     {/* { <GarexSneakorumLogo /> }
+                //     { <GarexNavbar /> } */}
+                //     {/* <ForumHome /> */}
+                //     <Thread />
+                // </div>
 
     );
 }

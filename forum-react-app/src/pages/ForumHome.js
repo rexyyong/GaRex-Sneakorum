@@ -8,6 +8,7 @@ import GarexSneakorumLogo from "../components/GarexSneakorumLogo";
 import GarexNavbar from "../components/GarexNavbar";
 import InfiniteScroll from "react-infinite-scroll-component";
 import ListThreads from "../components/ListThreads";
+import './ForumHome.css'
 
 const ForumHome = () => {
   const [threads, setThreads] = useState([]);
