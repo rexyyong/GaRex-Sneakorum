@@ -35,13 +35,13 @@ The image below shows the files structrure of the project. **Note that the front
 -   `./.env` contains the DATABASE_URL for deployment to Render. **This folder is hidden by .gitignore, note that you will have to create a .env file and initialise the DATABASE_URL variable to the external database link if you wish to deploy on render as well.**
 -   `./urls.py` routes of the forum app API to provide endpoints for the client
 -   `./views.py` consists of different functions based on urls.py  
- 
+ <br>
 
 `authentication` is the DJango APP in charge of all authentication related things in the web page. 
 -   `./urls.py` routes of the authentication app.
 -   `./views.py` consists of different functions to enable authentication of user. The html pages are retrived from `templates/auythentication` folder shown in diagram. 
 -   `./models.py` declares the tables and fields for our authentication databse  
- 
+  <br>
 
 
 `forum_api` is the DJango APP in charge of the api related functions between frontend and backend. 
@@ -51,7 +51,7 @@ The image below shows the files structrure of the project. **Note that the front
 -   `./tests.py` empty file
 -   `./urls.py` routes of the forum app API to provide endpoints for the client
 -   `./views.py` consists of different functions to build the API  
- 
+  <br>
 
 
 Under `forum-react-app` , contains the react folders `build`, `public` and `src` 
