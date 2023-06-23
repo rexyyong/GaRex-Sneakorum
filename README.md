@@ -28,18 +28,20 @@ Project is created with:
 
 ## Structure of files
 The image below shows the files structrure of the project. **Note that the frontend has both React and HTML. The authentication pages are in HTML and CSS, whereas the Forum was done in React.js**
-![File structure](https://drive.google.com/file/d/11cxreGgRTKJca-LcoCN0mvNoJH-OXmVJ/view?usp=sharing)
+![File structure](newstatic/ReadMeImage/Django%20File%20structure.drawio%20(5).png)
 
 `GFG` is the Django Project Folder of the web page.
 -   `./settings.py` relevant settings and configurations for web page
 -   `./.env` contains the DATABASE_URL for deployment to Render. **This folder is hidden by .gitignore, note that you will have to create a .env file and initialise the DATABASE_URL variable to the external database link if you wish to deploy on render as well.**
 -   `./urls.py` routes of the forum app API to provide endpoints for the client
--   `./views.py` consists of different functions based on urls.py
+-   `./views.py` consists of different functions based on urls.py  
+
 
 `authentication` is the DJango APP in charge of all authentication related things in the web page. 
 -   `./urls.py` routes of the authentication app.
 -   `./views.py` consists of different functions to enable authentication of user. The html pages are retrived from `templates/auythentication` folder shown in diagram. 
--   `./models.py` declares the tables and fields for our authentication databse
+-   `./models.py` declares the tables and fields for our authentication databse  
+
 
 
 `forum_api` is the DJango APP in charge of the api related functions between frontend and backend. 
@@ -48,7 +50,8 @@ The image below shows the files structrure of the project. **Note that the front
 -   `./signals.py` automatically generate profile for each user creation
 -   `./tests.py` empty file
 -   `./urls.py` routes of the forum app API to provide endpoints for the client
--   `./views.py` consists of different functions to build the API
+-   `./views.py` consists of different functions to build the API  
+
 
 
 Under `forum-react-app` , contains the react folders `build`, `public` and `src` 
@@ -56,7 +59,8 @@ Under `forum-react-app` , contains the react folders `build`, `public` and `src`
 -   `./public` contain favicon and index.html etc.
 -   `./src` stores contains all the source code of the React app, and it stores React `pages` and `components`.
     -   `./components` contain different components of forum app such as GarexNavBar, GarexSneakorumLogo, ListThreads, NewThreadForm, ReplyThreadForm. 
-    -   `./pages` stores the pages of GarexSneakorum such as ForumHome and Thread. 
+    -   `./pages` stores the pages of GarexSneakorum such as ForumHome and Thread.  
+
 
 ## Setup instructions
 * Clone and download the repository from github
