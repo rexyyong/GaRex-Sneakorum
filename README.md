@@ -1,8 +1,13 @@
 # GaRex-Sneakorum
-Repository for Garex Sneakorum. Done by Gareth Yeo and Rex Yong as part of NUS orbitla project. 
+Repository for Garex Sneakorum. Done by Gareth Yeo and Rex Yong as part of NUS orbital project. 
 
 ## Description 
-Garex Sneakorum is built using DJango and React. So far, the web application allows users to log in, access the sneaker forum page to add and view threads. 
+Garex Sneakorum is built using DJango and React.js. So far, the web application only allows users to log in, access the sneaker forum page to add and view threads. 
+
+## Other Links
+* Project log https://docs.google.com/spreadsheets/d/1TpqGWD2BXQ9LmXTm3K0cyGhjbrelDNgj-mygXk2z0Wg/edit
+* Project ReadMe document https://docs.google.com/document/d/1DBJkbkE8qRIKHXz5j7gsbSde9cerSz81Yis_hsEKv2M/edit
+* Project Video
 
 ## Table of contents
 * [Functions and features](#functions-and-features)
@@ -25,6 +30,7 @@ Project is created with:
 * HTML, CSS, React Bootstrap
 * POSTGRES SQL
 * Django REST Framework
+* Render (Hosting)
 
 ## Structure of files
 The image below shows the files structrure of the project. **Note that the frontend has both React and HTML. The authentication pages are in HTML and CSS, whereas the Forum was done in React.js**
@@ -43,7 +49,6 @@ The image below shows the files structrure of the project. **Note that the front
 -   `./models.py` declares the tables and fields for our authentication databse  
   <br>
 
-
 `forum_api` is the DJango APP in charge of the api related functions between frontend and backend. 
 -   `./models.py` defined database models for forum. 
 -   `./serializers.py` different classes to serialize database models
@@ -53,14 +58,12 @@ The image below shows the files structrure of the project. **Note that the front
 -   `./views.py` consists of different functions to build the API  
   <br>
 
-
 Under `forum-react-app` , contains the react folders `build`, `public` and `src` 
 -   `./build` a build directory with a production build of the forum app when command `npm run build` is run in terminal. 
 -   `./public` contain favicon and index.html etc.
 -   `./src` stores contains all the source code of the React app, and it stores React `pages` and `components`.
     -   `./components` contain different components of forum app such as GarexNavBar, GarexSneakorumLogo, ListThreads, NewThreadForm, ReplyThreadForm. 
     -   `./pages` stores the pages of GarexSneakorum such as ForumHome and Thread.  
-
 
 ## Setup instructions
 * Clone and download the repository from github
