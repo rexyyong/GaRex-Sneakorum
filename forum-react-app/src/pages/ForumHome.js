@@ -59,7 +59,16 @@ const ForumHome = () => {
       const moreThreads = await getMoreThreads()
 
       // update the thread state by combining data
-      setThreads([...threads, ...moreThreads])
+    setThreads(prevThreads => {
+      // Check if both prevThreads and moreThreads are defined and iterable
+      if (prevThreads && moreThreads && Array.isArray(prevThreads) && Array.isArray(moreThreads)) {
+        return [...prevThreads, ...moreThreads];
+      } else if (moreThreads && Array.isArray(moreThreads)) {
+        return moreThreads; // Only moreThreads is defined, so use it as the new threads array
+      } else {
+        return prevThreads; // Return the previous threads array as fallback
+      }
+    });
 
       // check the fetch of last page, if yes, HasMore is false
       if (moreThreads.length === 0 || moreThreads.length < 15) {
