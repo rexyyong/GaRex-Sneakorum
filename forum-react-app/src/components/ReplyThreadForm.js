@@ -10,7 +10,6 @@ const ReplyThreadForm = ({ thread }) => {
     content: '',
     thread: ''
   });
-  console.log(thread)
   const handleOpen = () => {
     setOpen(true);
   };
@@ -31,7 +30,6 @@ const ReplyThreadForm = ({ thread }) => {
       body: JSON.stringify(comment)
     });
     const data = await response.json();
-    console.log(data);
     // Clear the form
     setComment({
       content: '',

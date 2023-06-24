@@ -65,7 +65,6 @@ const NewThreadForm = () => {
     let handleThread = async (event) => {
         event.preventDefault();
         const csrftoken = Cookies.get('csrftoken');
-        console.log("test1")
         const response = await fetch(`/forum_api/createThread/`, {
             method: "POST",
             headers: {
@@ -74,10 +73,7 @@ const NewThreadForm = () => {
             },
             body: JSON.stringify(thread)
         })
-        console.log("test2")
         const data = await response.json()
-        console.log("test3")
-        console.log(data)
         //clear the form
         setThread('');
         // Close the dialog
