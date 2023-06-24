@@ -73,7 +73,7 @@ Navigate to ...\GaRex-Sneakorum directory and create virtual environment. Then r
 ```
 virtualenv venv
 
-myenv\Scripts\activate
+venv\Scripts\activate
 
 pip install -r requirements.txt
 ```
