@@ -18,6 +18,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 import dotenv
 dotenv.load_dotenv() #load environmemnt variables from .env
 import environ
+import os
 
 
 env = environ.Env()
@@ -31,7 +32,7 @@ environ.Env.read_env()
 SECRET_KEY = 'django-insecure-q-pz$%h7c)wbh0jx_b0-2n5+5)%758u*kkf8&h&gtx+h-(cb2*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -39,13 +40,14 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    'forum',
+    'forum_api',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -56,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'gfg.urls'
@@ -63,7 +66,10 @@ ROOT_URLCONF = 'gfg.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ["templates"],
+        'DIRS': [
+            "templates" , 
+            os.path.join(BASE_DIR , 'forum-react-app/build')
+            ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -138,7 +144,8 @@ STATIC_URL = '/static/'
 import os
 #static directory path
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
+    os.path.join(BASE_DIR, 'forum-react-app/build/static'),
+    os.path.join(BASE_DIR, 'newstatic'),
 
 ]
 
@@ -146,4 +153,14 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+SESSION_COOKIE_SAMESITE = 'None'
+SESSION_COOKIE_SECURE = 'False'
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ]
+}
+
 
