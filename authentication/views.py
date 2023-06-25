@@ -58,4 +58,4 @@ def signout(request):
 
 
 def react_app(request):
-    return render(request, "./staticfiles/build/index.html")
+    return render(request, "index.html")
