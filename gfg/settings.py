@@ -32,7 +32,7 @@ environ.Env.read_env()
 SECRET_KEY = 'django-insecure-q-pz$%h7c)wbh0jx_b0-2n5+5)%758u*kkf8&h&gtx+h-(cb2*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -143,13 +143,14 @@ STATIC_ROOT = '/Users/rexyy/OneDrive/Documents/GitHub/GaRex-Sneakorum/staticfile
 STATIC_URL = '/static/'
 
 # Following settings only make sense on production and may break development environments.
-# Tell Django to copy statics to the `staticfiles` directory
-# in your application directory on Render.
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+if not DEBUG:
+    # Tell Django to copy statics to the `staticfiles` directory
+    # in your application directory on Render.
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# Turn on WhiteNoise storage backend that takes care of compressing static files
-# and creating unique names for each version so they can safely be cached forever.
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    # Turn on WhiteNoise storage backend that takes care of compressing static files
+    # and creating unique names for each version so they can safely be cached forever.
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 import os
 #static directory path
