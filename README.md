@@ -34,7 +34,7 @@ Project is created with:
 
 ## Structure of files
 The image below shows the files structrure of the project. **Note that the frontend has both React and HTML. The authentication pages are in HTML and CSS, whereas the Forum was done in React.js**
-![File structure](newstatic/ReadMeImage/Django%20File%20structure.drawio%20(5).png)
+![File structure](static/ReadMeImage/Django%20File%20structure.drawio%20(5).png)
 
 `GFG` is the Django Project Folder of the web page.
 -   `./settings.py` relevant settings and configurations for web page
