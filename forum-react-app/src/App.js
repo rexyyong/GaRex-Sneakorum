@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Switch, Route, Routes } from 'react-router-dom
 
 function App() {
   return (
+    // <ForumHome/>
     <Router>
         <Routes>
           <Route path="/forum" element={<ForumHome />} />
