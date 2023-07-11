@@ -173,3 +173,5 @@ CORS_ALLOWED_ORIGINS = [
     # Add any other allowed origins
 ]
 
+#upgraded pip
+
