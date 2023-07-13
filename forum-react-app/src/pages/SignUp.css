@@ -1,8 +1,13 @@
 /* css for sign up page */
 
-.gradient-custom {
-    /* fixing the problem where zomming out causes split in background */
+html,
+body {
+    margin: 0;
+    padding: 0;
     min-height: 100vh;
+    height: 100%;
+    width: 100%;
+
     /* fallback for old browsers */
     background: #f093fb;
 
@@ -11,8 +16,7 @@
 
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     background: linear-gradient(to bottom right, rgba(240, 147, 251, 1), rgba(245, 87, 108, 1));
-
-
+    background-attachment: fixed;
 }
 
 h1 {

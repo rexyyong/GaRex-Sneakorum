@@ -19,7 +19,7 @@ const SignUp = () => {
                 {/* this div is for the logo and welcome text */}
                 <div>
                     <GarexSneakorumLogo />
-                    <h1 style={{ textAlign: "center" }}>Welcome to Garex's Sneakorum!</h1>
+                    {/* <h1 style={{ textAlign: "center" }}>Welcome to Garex's Sneakorum!</h1> */}
                 </div>
 
                 <div className="signup-form">
