@@ -14,7 +14,8 @@ function GarexNavbar() {
                             <a href="#AboutUs">About Us</a>
                         </li>
                         <li>
-                            <a className="active" href="#Forum">
+                            {/* <a className="active" href="/forum"> */}
+                            <a href="/forum">
                                 Sneaker Forum
                             </a>
                         </li>

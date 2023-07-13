@@ -1,8 +1,10 @@
 {
   "dependencies": {
     "js-cookie": "^3.0.5",
+    "react-fullpage": "^0.1.19",
     "react-helmet": "^6.1.0",
     "react-meta-tags": "^1.0.1",
-    "react-scripts": "^5.0.1"
+    "react-scripts": "^5.0.1",
+    "react-scroll": "^1.8.9"
   }
 }
