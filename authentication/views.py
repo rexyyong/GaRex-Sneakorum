@@ -1,8 +1,9 @@
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.contrib import messages
+from rest_framework.decorators import api_view
 
 # Create your views here.
 def index(request):
@@ -34,22 +35,19 @@ def signup(request):
         return redirect('signin')
     return render(request, "authentication/signup.html")
 
+@api_view(['POST'])
 def signin(request):
-    if request.method == "POST":
-        username = request.POST['username']
-        password = request.POST['password']
+    data = request.data
+    username = data['username']
+    password = data['password']
+    user = authenticate(username=username, password=password)
 
-        user = authenticate(username=username, password=password)
-
-        if user is not None:
-            login(request, user)
-            fname = user.first_name
-            return render(request, "authentication/home.html", {'fname':fname})
-        else:
-            messages.info(request, "Wrong email or password")
-            return redirect('signin')
-
-    return render(request, "authentication/signin.html")
+    if user is not None:
+        login(request, user)
+        # fname = user.first_name
+        return JsonResponse({'message': 'Login successful'}, status=200)
+    else:
+        return JsonResponse({'message': 'Login unsuccessful'}, status=300)
 
 def signout(request):
     logout(request)

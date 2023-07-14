@@ -166,12 +166,12 @@ REST_FRAMEWORK = {
 }
 
 #cors nonsense
-CORS_ALLOW_ALL_ORIGINS = True  
+CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOWED_ORIGINS = [
-    'https://garexsneakorumfontend.onrender.com/forum',  # Add the origin of your React app
-    # Add any other allowed origins
-]
+# CORS_ALLOWED_ORIGINS = [
+#     'https://garexsneakorumfontend.onrender.com/forum',  # Add the origin of your React app
+#     # Add any other allowed origins
+# ]
 
 #upgraded pip
 

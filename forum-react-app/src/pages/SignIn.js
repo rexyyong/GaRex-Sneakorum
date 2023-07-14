@@ -1,80 +1,108 @@
-import React from 'react'
-import GarexSneakorumLogo from '../components/GarexSneakorumLogo'
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
-
-
-import './SignIn.css'
+import GarexSneakorumLogo from '../components/GarexSneakorumLogo';
+import { useNavigate } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const SignIn = () => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
-    const pageTitle = "Garex Sneakorum Sign In Page";
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+  // Create an object with the form data
+  const formData = {
+    username: username,
+    password: password
+  };
 
-    return (
-        <>
-            <Helmet>
-                <title>{pageTitle}</title>
-            </Helmet>
+  try {
+    const response = await fetch('http://127.0.0.1:8000/signin', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    });
 
-            <div className="vh-100 gradient-custom">
-
-                {/* this div is for the logo and welcome text */}
-                <div>
-                    <GarexSneakorumLogo />
-                    <h1 style={{ textAlign: "center" }}>Welcome to Garex's Sneakorum!</h1>
-                </div>
-
-                {/* From this div on, its the portion related to login form. From "Log in" all the way to "Have an account?"*/}
-                <div className="login-form">
-                    <form action="/signin" method="post">
-                        {/* {"{"}% csrf_token %{"}"} */}
-                        <h2 className="text-center">Log in</h2>
-                        <div className="form-group">
-                            <input
-                                type="text"
-                                name="username"
-                                className="form-control"
-                                placeholder="Username"
-                                required="required"
-                            />
-                        </div>
-                        <div className="form-group">
-                            <input
-                                type="password"
-                                name="password"
-                                className="form-control"
-                                placeholder="Password"
-                                required="required"
-                            />
-                        </div>
-                        <div className="form-group">
-                            <button type="submit" className="btn btn-primary btn-block">
-                                Log in
-                            </button>
-                        </div>
-                        <div className="clearfix">
-                            <label className="pull-left checkbox-inline">
-                                <input type="checkbox" /> Remember me
-                            </label>
-                            <a href="#" className="pull-right">
-                                Forgot Password?
-                            </a>
-                        </div>
-                        {/* This part was added to create empty line so that "Have an account" Phrase is slightly lower*/}
-                        <div>
-                            <label> </label>
-                        </div>
-                        <div className="clearfix" style={{ textAlign: "center" }}>
-                            <label>Don't have an account?</label>
-                            <a href="/signup">Register here</a>
-                        </div>
-                    </form>
-                </div>
-
-            </div>
-        </>
-
-
-    )
+    if (response.ok) {
+      // Handle successful login
+      console.log('Login successful');
+      navigate('/home'); // Redirect to the dashboard page
+    } else {
+      // Handle failed login
+      console.log('Login failed');
+    }
+  } catch (error) {
+    // Handle error
+    console.error(error);
+  }
 };
 
-export default SignIn
+
+  const pageTitle = "Garex Sneakorum Sign In Page";
+
+  return (
+    <>
+      <Helmet>
+        <title>{pageTitle}</title>
+      </Helmet>
+
+      <div className="vh-100 gradient-custom">
+        <GarexSneakorumLogo />
+        <h1 style={{ textAlign: "center" }}>Welcome to Garex's Sneakorum!</h1>
+
+        <div className="login-form">
+          <form onSubmit={handleSubmit}>
+            <h2 className="text-center">Log in</h2>
+            <div className="form-group">
+              <input
+                type="text"
+                name="username"
+                className="form-control"
+                placeholder="Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <input
+                type="password"
+                name="password"
+                className="form-control"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <button type="submit" className="btn btn-primary btn-block">
+                Log in
+              </button>
+            </div>
+            <div className="clearfix">
+              <label className="pull-left checkbox-inline">
+                <input type="checkbox" /> Remember me
+              </label>
+              <a href="#" className="pull-right">
+                Forgot Password?
+              </a>
+            </div>
+            <div>
+              <label> </label>
+            </div>
+            <div className="clearfix" style={{ textAlign: "center" }}>
+              <label>Don't have an account?</label>
+              <a href="/signup">Register here</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default SignIn;
