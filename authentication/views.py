@@ -12,28 +12,27 @@ def index(request):
 def home(request):
     return render(request, "authentication/home.html")
 
+@api_view(['POST'])
 def signup(request):
-    if request.method == "POST":
-        # username = request.POST.get('username')
-        fname = request.POST['fname']
-        lname = request.POST['lname']
-        username = request.POST['username']
-        email = request.POST['email']
-        password = request.POST['pass1']
-        cpassword = request.POST['pass2']
+    data = request.data
+    username = data['username']
+    password = data['pass1']
+    pass2 = data['pass2']
+    email = data['email']
+    fname = data['fname']
+    lname = data['lname']
 
-        if password != cpassword:
-            messages.error(request, "passwords dont match")
-            return redirect('signup')
+    if password != pass2:
+        messages.error(request, "passwords dont match")
+        return JsonResponse({'message': 'Signup unsuccessful'}, status=300)
 
-        myuser = User.objects.create_user(username, email, password)
-        myuser.first_name = fname
-        myuser.last_name = lname
-        myuser.save()
+    myuser = User.objects.create_user(username, email, password)
+    myuser.first_name = fname
+    myuser.last_name = lname
+    myuser.save()
 
-        messages.success(request, "Your account has been successfully created")
-        return redirect('signin')
-    return render(request, "authentication/signup.html")
+    return JsonResponse({'message': 'Signup successful'}, status=200)
+
 
 @api_view(['POST'])
 def signin(request):
