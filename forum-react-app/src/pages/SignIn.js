@@ -4,41 +4,43 @@ import GarexSneakorumLogo from '../components/GarexSneakorumLogo';
 import { useNavigate } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 
+import './SignIn.css'
+
 const SignIn = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
- const handleSubmit = async (e) => {
-  e.preventDefault();
-  // Create an object with the form data
-  const formData = {
-    username: username,
-    password: password
-  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // Create an object with the form data
+    const formData = {
+      username: username,
+      password: password
+    };
 
-  try {
-    const response = await fetch('http://127.0.0.1:8000/signin', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(formData)
-    });
+    try {
+      const response = await fetch('http://127.0.0.1:8000/signin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
 
-    if (response.ok) {
-      // Handle successful login
-      console.log('Login successful');
-      navigate('/home'); // Redirect to the dashboard page
-    } else {
-      // Handle failed login
-      console.log('Login failed');
+      if (response.ok) {
+        // Handle successful login
+        console.log('Login successful');
+        navigate('/home'); // Redirect to the dashboard page
+      } else {
+        // Handle failed login
+        console.log('Login failed');
+      }
+    } catch (error) {
+      // Handle error
+      console.error(error);
     }
-  } catch (error) {
-    // Handle error
-    console.error(error);
-  }
-};
+  };
 
 
   const pageTitle = "Garex Sneakorum Sign In Page";
@@ -50,8 +52,10 @@ const SignIn = () => {
       </Helmet>
 
       <div className="vh-100 gradient-custom">
-        <GarexSneakorumLogo />
-        <h1 style={{ textAlign: "center" }}>Welcome to Garex's Sneakorum!</h1>
+        <div>
+          <GarexSneakorumLogo />
+          <h1 style={{ textAlign: "center" }}>Welcome to Garex's Sneakorum!</h1>
+        </div>
 
         <div className="login-form">
           <form onSubmit={handleSubmit}>
