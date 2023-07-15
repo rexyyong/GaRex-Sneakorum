@@ -24,14 +24,14 @@ const Profile = () => {
                 </div>
 
                 <Container maxWidth="md">
-                    <Typography component="h1" variant="h5" sx={{ mb: 3 }}>
+                    <Typography component="h1" variant="h3" sx={{ mb: 3 }} style={{ marginTop: '20px' }}>
                         {/* {profile?.name}'s Profile */}
                         Random's Profile
                     </Typography>
 
 
                     <Card sx={{ boxShadow: 3 }}>
-                        List of threads
+                        Random's List of threads
 
                         {/* The code here is wrong. Refer to ListThreads.js to see how we drag the threads to this page */}
 
