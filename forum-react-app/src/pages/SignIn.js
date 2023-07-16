@@ -9,10 +9,20 @@ import './SignIn.css'
 const SignIn = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [submitted, setSubmitted] = useState(false); // State to track form submission
+
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    setSubmitted(true); // Set submitted to true when the form is submitted
+
+    // Check if the fields are empty before submitting the form
+    if (username.trim() === '' || password.trim() === '') {
+      return; // Exit early if fields are empty
+    }
+
     // Create an object with the form data
     const formData = {
       username: username,
@@ -69,8 +79,12 @@ const SignIn = () => {
                 placeholder="Username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                required
+                // required
               />
+              {/* Display validation message for username */}
+              {submitted && username.trim() === '' && (
+                <div className="error-message">Please fill in the username field.</div>
+              )}
             </div>
             <div className="form-group">
               <input
@@ -81,8 +95,12 @@ const SignIn = () => {
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                required
+                // required
               />
+              {/* Display validation message for password */}
+              {submitted && password.trim() === '' && (
+                <div className="error-message">Please fill in the password field.</div>
+              )}
             </div>
             <div className="form-group">
               <button data-testid='login-button' type="submit" className="btn btn-primary btn-block">

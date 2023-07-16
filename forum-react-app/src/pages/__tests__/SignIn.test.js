@@ -10,19 +10,19 @@ jest.mock('react-router-dom', () => ({
 describe('SignIn Component', () => {
 
     beforeEach(() => {
-    // Reset the fetch mock before each test
-    jest.spyOn(global, 'fetch').mockImplementation(() =>
-      Promise.resolve({
-        ok: true,
-        json: () => Promise.resolve({ success: true }),
-      })
-    );
-  });
+        // Reset the fetch mock before each test
+        jest.spyOn(global, 'fetch').mockImplementation(() =>
+            Promise.resolve({
+                ok: true,
+                json: () => Promise.resolve({ success: true }),
+            })
+        );
+    });
 
-  afterEach(() => {
-    // Restore the original fetch implementation after each test
-    global.fetch.mockRestore();
-  });
+    afterEach(() => {
+        // Restore the original fetch implementation after each test
+        global.fetch.mockRestore();
+    });
 
 
     test('renders SignIn component', () => {
@@ -41,43 +41,32 @@ describe('SignIn Component', () => {
         expect(getByTestId('login-button')).toBeInTheDocument();
     });
 
-    // test('shows validation message if username and/or password are empty', () => {
-    //     const { getByTestId, queryByRole } = render(<SignIn />);
+    test('shows validation message for empty username and password fields on form submit', () => {
+        const { getByTestId, getByText } = render(<SignIn />);
 
-    //         // Mock the handleSubmit function to prevent form submission
-    // const handleSubmitMock = jest.fn((event) => {
-    //   event.preventDefault(); // Prevent actual form submission
-    // });
+        // Submit the form without filling in the fields
+        fireEvent.submit(getByTestId('login-form'));
 
-    // // Replace the real handleSubmit function with the mock
-    // SignIn.prototype.handleSubmit = handleSubmitMock;
+        // Check if the validation message for the username field is displayed
+        expect(getByText('Please fill in the username field.')).toBeInTheDocument();
 
-    //     // // Empty the input fields
-    //     // fireEvent.change(getByTestId('username-input'), { target: { value: '' } });
-    //     // fireEvent.change(getByTestId('password-input'), { target: { value: '' } });
+        // Check if the validation message for the password field is displayed
+        expect(getByText('Please fill in the password field.')).toBeInTheDocument();
+    });
 
-    //     // Submit the form
-    //     fireEvent.submit(getByTestId('login-form'));
-
-    //     // Check if the form is not being submitted (no fetch requests)
-    //     expect(global.fetch).not.toHaveBeenCalled();
-
-    //     expect(getByText('Please fill out this field')).toBeInTheDocument();
-
-    // });
-
-    test('does not show validation message if username and password are filled', () => {
-        const { getByTestId, queryByRole } = render(<SignIn />);
+    test('does not show validation message when both username and password are filled on form submit', () => {
+        const { getByTestId, getByPlaceholderText, queryByText } = render(<SignIn />);
 
         // Fill the input fields with valid data
-        fireEvent.change(getByTestId('username-input'), { target: { value: 'testuser' } });
-        fireEvent.change(getByTestId('password-input'), { target: { value: 'testpassword' } });
+        fireEvent.change(getByPlaceholderText('Username'), { target: { value: 'testuser' } });
+        fireEvent.change(getByPlaceholderText('Password'), { target: { value: 'testpassword' } });
 
         // Submit the form
-        fireEvent.click(getByTestId('login-button'));
+        fireEvent.submit(getByTestId('login-form'));
 
-        // Check if the validation message is not displayed
-        expect(queryByRole('alert')).not.toBeInTheDocument();
+        // Check that the validation messages are not displayed
+        expect(queryByText('Please fill in the username field.')).toBeNull();
+        expect(queryByText('Please fill in the password field.')).toBeNull();
     });
 
     // Add more tests for other component behavior and interactions if needed
