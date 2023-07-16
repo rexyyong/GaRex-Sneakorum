@@ -58,10 +58,11 @@ const SignIn = () => {
         </div>
 
         <div className="login-form">
-          <form onSubmit={handleSubmit}>
+          <form data-testid="login-form" onSubmit={handleSubmit}>
             <h2 data-testid='login-text' className="text-center">Log in</h2>
             <div className="form-group">
               <input
+                data-testid='username-input'
                 type="text"
                 name="username"
                 className="form-control"
@@ -73,6 +74,7 @@ const SignIn = () => {
             </div>
             <div className="form-group">
               <input
+                data-testid='password-input'
                 type="password"
                 name="password"
                 className="form-control"
