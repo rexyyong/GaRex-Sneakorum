@@ -59,7 +59,7 @@ const SignIn = () => {
 
         <div className="login-form">
           <form onSubmit={handleSubmit}>
-            <h2 className="text-center">Log in</h2>
+            <h2 data-testid='login-text' className="text-center">Log in</h2>
             <div className="form-group">
               <input
                 type="text"
@@ -83,7 +83,7 @@ const SignIn = () => {
               />
             </div>
             <div className="form-group">
-              <button type="submit" className="btn btn-primary btn-block">
+              <button data-testid='login-button' type="submit" className="btn btn-primary btn-block">
                 Log in
               </button>
             </div>
