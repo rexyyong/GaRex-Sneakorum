@@ -1,0 +1,44 @@
+{% extends "admin/base.html" %}
+
+{% block extrastyle %}
+    {{ block.super }}
+    <style>
+        /* Additional custom styles here */
+    </style>
+{% endblock %}
+
+{% block bodyclass %}{{ block.super }} app-{{ opts.app_label }} model-{{ opts.model_name }}{% endblock %}
+
+{% block branding %}
+    <h1 id="site-name"><a href="{% url 'admin:index' %}">My Admin</a></h1>
+    {% if user.is_authenticated %}
+        <p>Welcome, {{ user.username }}!</p>
+    {% endif %}
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
+
+{% block sidebar %}
+    <div class="sidebar">
+        <!-- Sidebar content here -->
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div id="content" class="{% if not is_popup %}colM{% endif %}">
+        {% block messages %}
+            {% if messages %}
+                <ul class="messagelist">
+                    {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endblock %}
+        <div class="module">
+            <table>
+                <!-- Content table here -->
+            </table>
+        </div>
+    </div>
+{% endblock %}

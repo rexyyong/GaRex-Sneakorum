@@ -25,5 +25,5 @@ urlpatterns = [
     path('', include('authentication.urls')),
     # path('', include('forum_api.urls')),
     path('forum_api/', include('forum_api.urls')),
-    re_path(r'^(?:.*)/?$', TemplateView.as_view(template_name="index.html")),
+    # re_path(r'^(?:.*)/?$', TemplateView.as_view(template_name="index.html")),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

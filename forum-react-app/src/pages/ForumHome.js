@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
@@ -9,6 +9,7 @@ import GarexNavbar from "../components/GarexNavbar";
 import InfiniteScroll from "react-infinite-scroll-component";
 import ListThreads from "../components/ListThreads";
 import './ForumHome.css'
+
 
 const ForumHome = () => {
   const [threads, setThreads] = useState([]);
@@ -43,44 +44,37 @@ const ForumHome = () => {
 
   }, [])
 
-  const getMoreThreads = async () => {
-      // fetch the threads from api endpoint
-      const response = await fetch(`https://garexsneakorum.onrender.com/forum_api/threads/?page=${page}`)
-      // parse the data in json
-      let data = await response.json()
+const getMoreThreads = useCallback(async () => {
+  const response = await fetch(`https://garexsneakorum.onrender.com/forum_api/threads/?page=${page}`);
+  const data = await response.json();
+  return data.results;
+}, [page]);
 
-      console.log("fetching")
+const getData = useCallback(async () => {
+  const moreThreads = await getMoreThreads();
 
-      return data.results
-  }
-
-  const getData = async () => {
-      // get more threads from next fetch
-      const moreThreads = await getMoreThreads()
-
-      // update the thread state by combining data
+  if (moreThreads) {
     setThreads(prevThreads => {
-      // Check if both prevThreads and moreThreads are defined and iterable
-      if (prevThreads && moreThreads && Array.isArray(prevThreads) && Array.isArray(moreThreads)) {
+      if (Array.isArray(prevThreads) && Array.isArray(moreThreads)) {
         return [...prevThreads, ...moreThreads];
-      } else if (moreThreads && Array.isArray(moreThreads)) {
-        return moreThreads; // Only moreThreads is defined, so use it as the new threads array
+      } else if (Array.isArray(moreThreads)) {
+        return moreThreads;
       } else {
-        return prevThreads; // Return the previous threads array as fallback
+        return prevThreads;
       }
     });
 
-      // check the fetch of last page, if yes, HasMore is false
-      if (moreThreads.length === 0 || moreThreads.length < 15) {
-          setHasMore(false)
-      }
-      setPage(page + 1)
+    if (moreThreads.length === 0 || moreThreads.length < 15) {
+      setHasMore(false);
+    } else {
+      setPage(prevPage => prevPage + 1);
+    }
   }
+}, [getMoreThreads, setThreads, setHasMore, setPage]);
 
-
-  useEffect(() => {
-    getData();
-  }, [page]);
+useEffect(() => {
+  getData();
+}, [getData, page]);
 
 
   return (

@@ -49,19 +49,20 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
+    'authentication'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
-
 ]
+
 
 ROOT_URLCONF = 'gfg.urls'
 
@@ -155,22 +156,36 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-SESSION_COOKIE_SAMESITE = 'None'
-SESSION_COOKIE_SECURE = 'False'
+# SESSION_SAVE_EVERY_REQUEST = False
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+# SESSION_COOKIE_HTTPONLY = True
+# SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+#
+# SESSION_COOKIE_SAMESITE = 'None'
+SESSION_COOKIE_SECURE = False
+#
+#
+# SESSION_COOKIE_SAMESITE = 'None'
+# SESSION_COOKIE_SECURE = 'False'
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
         'rest_framework.renderers.BrowsableAPIRenderer',
-    ]
+    ],
 }
 
+
 #cors nonsense
-CORS_ALLOW_ALL_ORIGINS = True  
+CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOWED_ORIGINS = [
-    'https://garexsneakorumfontend.onrender.com/forum',  # Add the origin of your React app
-    # Add any other allowed origins
+# CORS_ALLOWED_ORIGINS = [
+#     'http://localhost:3000',
+#     # Add any other allowed origins here
+# ]
+#
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000',
+    # Add any other trusted origins here
 ]
 
 #upgraded pip
