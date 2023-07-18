@@ -1,57 +1,111 @@
-import React from 'react'
-import GarexSneakorumLogo from '../components/GarexSneakorumLogo'
+import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
-import GarexNavbar from "../components/GarexNavbar";
+import GarexSneakorumLogo from '../components/GarexSneakorumLogo';
+import GarexNavbar from '../components/GarexNavbar';
+import { useNavigate } from 'react-router-dom';
 
-
-
-
-import './Home.css'
+import './Home.css';
 
 const Home = () => {
+  const pageTitle = 'Garex Sneakorum Home Page';
+  const [username, setUsername] = useState('');
+  const navigate = useNavigate();
+  const [sessionData, setSessionData] = useState(null);
 
-    const pageTitle = "Garex Sneakorum Home Page";
+  useEffect(() => {
+    // Make a request to your Django backend to retrieve the session token and user's username
+    // Here, you can use the fetch API or a library like Axios
 
-    return (
-        <>
-            <Helmet>
-                <title>{pageTitle}</title>
-            </Helmet>
+        const fetchSessionData = async () => {
+              try {
+                const response = await fetch('http://127.0.0.1:8000/test', {
+                  method: 'GET',
+                  credentials: 'include', // Include credentials (session cookie) in the request
+                });
 
-            <div className="vh-100 gradient-custom">
+                if (response.ok) {
+                  const data = await response.json();
+                  setSessionData(data);
+                } else {
+                  console.log('Failed to fetch session data');
+                }
+              } catch (error) {
+                console.error('Error fetching session data:', error);
+              }
+            };
 
-                {/* this div is for the logo and welcome text */}
-                <div>
-                    <GarexSneakorumLogo />
-                </div>
-                <h3>
-                    Hello {"{"}
-                    {"{"} fname {"}"}
-                    {"}"}
-                </h3>
-                <h4>You are succesfully logged in</h4>
-                <button type="submit">
-                    <a href="/signout">SignOut</a>
-                </button>
-                <GarexNavbar />
+            fetchSessionData();
+          }, []);
 
-                <div className="shoeDrops">
-                    <h1>Latest Models</h1>
-                    <img
-                        src="https://drive.google.com/uc?id=1EAvU9vTKAorClBsnNQ86zRiyBAqwZEfb"
-                        alt="Nike Paris Dunk"
-                        className="center"
-                        style={{ marginBottom: "-25px" }}
-                    />
-                    <h2 style={{ marginBottom: "-15px" }}>Nike MotherFly Model 2</h2>
-                    <h2>$6969</h2>
-                </div>
-            </div>
+//    fetch('http://127.0.0.1:8000/get-session-user', {
+//      credentials: 'include', // Include credentials (session cookie) in the request
+//    })
+//      .then(response => response.json())
+//      .then(data => {
+//        setUsername(data.username);
+//      })
+//      .catch(error => {
+//        console.error('Error fetching username:', error);
+//      });
+//  }, []);
 
-        </>
+  const handleLogout = () => {
+    // Make API request to sign out
+    fetch(`https://garexsneakorum.onrender.com/forum_api/logout',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        // Include any necessary headers, such as authentication token
+      },
+      // Include any necessary request data, such as user ID
+      // body: JSON.stringify({ userId: 123 }),
+    })
+      .then(response => {
+        if (response.ok) {
+          // Handle successful sign out
+          console.log('Sign out successful');
+          navigate('/signin');
+        } else {
+          // Handle sign out error
+          console.error('Sign out error');
+        }
+      })
+      .catch(error => {
+        // Handle network or other errors
+        console.error('Sign out failed:', error);
+      });
+  };
 
+  return (
+    <>
+      <Helmet>
+        <title>{pageTitle}</title>
+      </Helmet>
 
-    )
+      <div className="vh-100 gradient-custom">
+        <div>
+          <GarexSneakorumLogo />
+        </div>
+        <h3>Hello {username}</h3>
+        <h4>You are successfully logged in</h4>
+        <button onClick={handleLogout}>Logout</button>
+        <GarexNavbar />
+
+        <div className="shoeDrops">
+          <h1>Latest Models</h1>
+          <img
+            src="https://drive.google.com/uc?id=1EAvU9vTKAorClBsnNQ86zRiyBAqwZEfb"
+            alt="Nike Paris Dunk"
+            className="center"
+            style={{ marginBottom: '-25px' }}
+          />
+          <h2 style={{ marginBottom: '-15px' }}>Nike MotherFly Model 2</h2>
+          <h2>$6969</h2>
+        </div>
+      </div>
+    </>
+  );
 };
 
-export default Home
+export default Home;
