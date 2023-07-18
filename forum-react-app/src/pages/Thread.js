@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { CardContent, CardActions, Typography, Container, Grid, IconButton, Card } from '@mui/material';
 import ShareIcon from '@mui/icons-material/Share';
@@ -36,29 +36,20 @@ useEffect(() => {
     if (data.next === null) {
       setHasMore(false);
     }
-    setPage(page + 1);
+    else{
+    setPage(page + 1);}
   };
 
   getComments();
 }, [id, page]);
 
-  const getMoreComments = async () => {
-    try{
-      // fetch the posts from api endpoint
-    const response = await fetch(`https://garexsneakorum.onrender.com/forum_api/threads/${id}/comments?page=${page}`)
-    // parse the data in json
-    let data = await response.json()
-    console.log("fetching")
+  const getMoreComments = useCallback(async () => {
+  const response = await fetch(`https://garexsneakorum.onrender.com/forum_api/threads/${id}/comments?page=${page}`);
+  const data = await response.json();
+  return data.results;
+}, [page]);
 
-    return data.results
-
-    } catch (err) {
-      console.log("No next page.")
-    }
-
-  }
-
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
       // get more posts from next fetch
       let moreComments = await getMoreComments()
 
@@ -68,9 +59,9 @@ useEffect(() => {
       // check the fetch of last page, if yes, HasMore is false
       if (moreComments.length === 0 || moreComments.length < 10) {
           setHasMore(false)
-      }
-      setPage(page + 1)
-  }
+      }else{
+      setPage(page + 1)}
+  }, [getMoreComments, setComments, setHasMore, setPage]);
 
   return (
     <div className="vh-100 gradient-custom">
