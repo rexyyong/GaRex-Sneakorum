@@ -185,7 +185,7 @@ CORS_ALLOW_CREDENTIALS = True
 #
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
-    'https://garexsneakorumfontend.onrender.com/',
+    'https://garexsneakorumfontend.onrender.com',
     # Add any other trusted origins here
 ]
 
