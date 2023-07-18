@@ -21,7 +21,7 @@ const Thread = () => {
     const fetchThread = async () => {
       const response = await fetch(`/forum_api/threads/${id}`);
       const data = await response.json();
-      setThread(data);
+      setThread(data.results);
     };
 
     fetchThread();
