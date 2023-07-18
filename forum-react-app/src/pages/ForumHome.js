@@ -45,7 +45,7 @@ const ForumHome = () => {
   }, [])
 
 const getMoreThreads = useCallback(async () => {
-  const response = await fetch('https://garexsneakorum.onrender.com/forum_api/threads/?page=${page}');
+  const response = await fetch(`https://garexsneakorum.onrender.com/forum_api/threads/?page=${page}`);
   const data = await response.json();
   return data.results;
 }, [page]);
