@@ -30,7 +30,7 @@ const Thread = () => {
   // trigger posts update
   useEffect(() => {
       let getComments = async () => {
-          let response = await fetch(``https://garexsneakorum.onrender.com/forum_api/threads/${id}/comments?page=${page}`)
+          let response = await fetch(`https://garexsneakorum.onrender.com/forum_api/threads/${id}/comments?page=${page}`)
 
           // parse the data in json
           let data = await response.json()
