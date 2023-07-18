@@ -21,7 +21,7 @@ const buttonTheme = createTheme({
   },
 });
 
-const NewThreadForm = ({ setRefreshFlag }) => {
+const NewThreadForm = ({ handleNewThread }) => {
   const [open, setOpen] = useState(false);
   const [thread, setThread] = useState({
     subject: "",
@@ -64,8 +64,8 @@ const NewThreadForm = ({ setRefreshFlag }) => {
       subject: "",
       content: "",
     });
-    setRefreshFlag((prevFlag) => !prevFlag);
     handleClose();
+    handleNewThread();
   };
 
   return (
