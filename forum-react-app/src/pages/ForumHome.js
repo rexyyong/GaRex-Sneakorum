@@ -15,8 +15,6 @@ const ForumHome = () => {
   const [threads, setThreads] = useState([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-  const [refreshFlag, setRefreshFlag] = useState(false);
-
 
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -27,57 +25,51 @@ const ForumHome = () => {
   }));
 
   useEffect(() => {
-      const getThreads = async () => {
-          // fetch the threads from api endpoint
-          const response = await fetch('https://garexsneakorum.onrender.com/forum_api/threads/?page=1')
-
-          // parse the data in json
-          let data = await response.json()
-
-          // update the state of threads
-          setThreads(data.results)
-
-           // check if there is more threads
-           if (data.next === null) {
-            setHasMore(false)
-          }
+    const getThreads = async () => {
+      const response = await fetch('https://garexsneakorum.onrender.com/forum_api/threads/?page=1');
+      const data = await response.json();
+      setThreads(data.results);
+      if (data.next === null) {
+        setHasMore(false);
       }
-      getThreads()
+    };
 
-  }, [refreshFlag])
+    getThreads();
+  }, []);
 
-const getMoreThreads = useCallback(async () => {
-  const response = await fetch(`https://garexsneakorum.onrender.com/forum_api/threads/?page=${page}`);
-  const data = await response.json();
-  return data.results;
-}, [page]);
+  const getMoreThreads = useCallback(async () => {
+    const response = await fetch(`https://garexsneakorum.onrender.com/forum_api/threads/?page=${page}`);
+    const data = await response.json();
+    return data.results;
+  }, [page]);
 
-const getData = useCallback(async () => {
-  const moreThreads = await getMoreThreads();
+  const getData = useCallback(async () => {
+    const moreThreads = await getMoreThreads();
 
-  if (moreThreads) {
-    setThreads(prevThreads => {
-      if (Array.isArray(prevThreads) && Array.isArray(moreThreads)) {
-        return [...prevThreads, ...moreThreads];
-      } else if (Array.isArray(moreThreads)) {
-        return moreThreads;
+    if (moreThreads) {
+      setThreads((prevThreads) => {
+        if (Array.isArray(prevThreads) && Array.isArray(moreThreads)) {
+          return [...prevThreads, ...moreThreads];
+        } else if (Array.isArray(moreThreads)) {
+          return moreThreads;
+        } else {
+          return prevThreads;
+        }
+      });
+
+      if (moreThreads.length === 0 || moreThreads.length < 15) {
+        setHasMore(false);
       } else {
-        return prevThreads;
+        setPage((prevPage) => prevPage + 1);
       }
-    });
-
-    if (moreThreads.length === 0 || moreThreads.length < 15) {
-      setHasMore(false);
-    } else {
-      setPage(prevPage => prevPage + 1);
     }
-  }
-}, [getMoreThreads, setThreads, setHasMore, setPage]);
+  }, [getMoreThreads, setThreads, setHasMore, setPage]);
 
-useEffect(() => {
-  getData();
-}, [getData, page]);
-
+  const handleNewThread = useCallback(() => {
+    setThreads([]);
+    setPage(1);
+    setHasMore(true);
+  }, []);
 
   return (
     <div className="vh-100 gradient-custom">
@@ -87,7 +79,7 @@ useEffect(() => {
         <Grid item xs={12} md={6}>
           <div className="d-flex justify-content-between mb-3">
             <Typography variant="h5">Latest Thread</Typography>
-            <NewThreadForm setRefreshFlag={setRefreshFlag} />
+            <NewThreadForm handleNewThread={handleNewThread} />
           </div>
 
           <Item>
