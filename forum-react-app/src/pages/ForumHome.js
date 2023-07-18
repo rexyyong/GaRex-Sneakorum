@@ -12,12 +12,15 @@ import './ForumHome.css'
 import GarexSearchbar from '../components/GarexSearchBar';
 import Box from '@mui/material/Box';
 import { Container } from "@mui/material";
+import { useNavigate } from 'react-router-dom';
 
 
 const ForumHome = () => {
   const [threads, setThreads] = useState([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
+  const [username, setUsername] = useState('');
+  const navigate = useNavigate();
 
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -75,9 +78,40 @@ const ForumHome = () => {
     getMoreThreads();
   }, [getMoreThreads]);
 
+  const handleLogout = () => {
+    // Make API request to sign out
+    fetch('https://garexsneakorum.onrender.com/logout', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        // Include any necessary headers, such as authentication token
+      },
+      // Include any necessary request data, such as user ID
+      // body: JSON.stringify({ userId: 123 }),
+    })
+      .then(response => {
+        if (response.ok) {
+          // Handle successful sign out
+          console.log('Sign out successful');
+          navigate('/signin');
+        } else {
+          // Handle sign out error
+          console.error('Sign out error');
+        }
+      })
+      .catch(error => {
+        // Handle network or other errors
+        console.error('Sign out failed:', error);
+      });
+  };
+
   return (
     <div className="vh-100 gradient-custom">
       <GarexSneakorumLogo />
+      <h3>Hello {username}</h3>
+      <h4>You are successfully logged in</h4>
+      <button onClick={handleLogout}>Logout</button>
+
       <GarexNavbar />
       <GarexSearchbar />
 
