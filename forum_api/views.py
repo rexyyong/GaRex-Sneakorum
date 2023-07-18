@@ -4,6 +4,7 @@ from .serializers import ThreadSerializer, CommentSerializer
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from django.http import JsonResponse
 import json
 from rest_framework import status
 
@@ -26,7 +27,7 @@ def getThread(request, thread_id):
         thread = Thread.objects.get(pk=thread_id)
     except thread.DoesNotExist:
         content = {"The Thread does not exist."}
-        return Response(content)
+        return JsonResponse(content)
     serializer = ThreadSerializer(thread, many=False)
 
     return Response(serializer.data)
