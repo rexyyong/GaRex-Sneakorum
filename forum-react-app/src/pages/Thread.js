@@ -43,6 +43,12 @@ const Thread = () => {
     getComments();
   }, [getComments]);
 
+  const handleNewComment = useCallback(() => {
+    setComments([]);
+    setPage(1);
+    setHasMore(true);
+  }, []);
+
   return (
     <div className="vh-100 gradient-custom">
       <GarexSneakorumLogo />
@@ -76,7 +82,7 @@ const Thread = () => {
             </CardActions>
           </Card>
 
-          <ReplyThreadForm thread={thread} />
+          <ReplyThreadForm thread={thread} handleNewComment={handleNewComment} />
 
           <InfiniteScroll
             dataLength={comments.length}
