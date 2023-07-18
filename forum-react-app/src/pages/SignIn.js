@@ -3,6 +3,9 @@ import { Helmet } from 'react-helmet';
 import GarexSneakorumLogo from '../components/GarexSneakorumLogo';
 import { useNavigate } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
+import Alert from '@mui/material/Alert';
+import { Snackbar } from '@mui/material';
+
 
 import './SignIn.css'
 
@@ -11,6 +14,7 @@ const SignIn = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const [sessionData, setSessionData] = useState(null);
+  const [wrongPasswordAlert, setPasswordAlert] = useState(false);
   let csrfToken;
 
   const fetchCsrfToken = async () => {
@@ -76,11 +80,16 @@ const SignIn = () => {
       } else {
         // Handle failed login
         console.log('Login failed');
+        setPasswordAlert(true);
       }
     } catch (error) {
       // Handle error
       console.error(error);
     }
+  };
+
+  const handleCloseAlert = () => {
+    setPasswordAlert(false);
   };
 
 
@@ -125,6 +134,18 @@ const SignIn = () => {
               <button type="submit" className="btn btn-primary btn-block">
                 Log in
               </button>
+            </div>
+            <div>
+              <Snackbar 
+              open={wrongPasswordAlert} 
+              autoHideDuration={5000}
+              onClose={handleCloseAlert}
+              anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+              >
+                <Alert onClose={handleCloseAlert} severity="warning">
+                  Please key in the correct username/password!
+                </Alert>
+              </Snackbar>
             </div>
             <div className="clearfix">
               <label className="pull-left checkbox-inline">
