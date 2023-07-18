@@ -9,6 +9,9 @@ import GarexNavbar from "../components/GarexNavbar";
 import InfiniteScroll from "react-infinite-scroll-component";
 import ListThreads from "../components/ListThreads";
 import './ForumHome.css'
+import GarexSearchbar from '../components/GarexSearchBar';
+import Box from '@mui/material/Box';
+import { Container } from "@mui/material";
 
 
 const ForumHome = () => {
@@ -76,28 +79,32 @@ const ForumHome = () => {
     <div className="vh-100 gradient-custom">
       <GarexSneakorumLogo />
       <GarexNavbar />
-      <div style={{ marginTop: 20 }}>
-        <Grid item xs={12} md={6}>
-          <div className="d-flex justify-content-between mb-3">
-            <Typography variant="h5">Latest Thread</Typography>
-            <NewThreadForm handleNewThread={handleNewThread} />
-          </div>
+      <GarexSearchbar />
 
-          <Item>
-            <InfiniteScroll
-              dataLength={threads.length}
-              next={getData}
-              hasMore={hasMore}
-              loader={<h4>Loading...</h4>}
-              endMessage={<p>No more threads to load.</p>}
-            >
-              {threads.map((thread, index) => (
-                <ListThreads key={index} thread={thread} />
-              ))}
-            </InfiniteScroll>
-          </Item>
-        </Grid>
-      </div>
+      <Container maxWidth="lg">
+        <div style={{ marginTop: 20 }}>
+          <Grid item xs={12} md={6}>
+            <div className="d-flex justify-content-between mb-3">
+              <Typography variant="h5">Latest Threads</Typography>
+              <NewThreadForm handleNewThread={handleNewThread} />
+            </div>
+
+            <Item>
+              <InfiniteScroll
+                dataLength={threads.length}
+                next={getData}
+                hasMore={hasMore}
+                loader={<h4>Loading...</h4>}
+                endMessage={<p>No more threads to load.</p>}
+              >
+                {threads.map((thread, index) => (
+                  <ListThreads key={index} thread={thread} />
+                ))}
+              </InfiniteScroll>
+            </Item>
+          </Grid>
+        </div>
+      </Container>
     </div>
   );
 };
