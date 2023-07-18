@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { CardContent, CardActions, Typography, Container, Grid, IconButton, Card } from '@mui/material';
 import ShareIcon from '@mui/icons-material/Share';
@@ -17,51 +17,31 @@ const Thread = () => {
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
 
-useEffect(() => {
-  const fetchThread = async () => {
-    const response = await fetch(`/forum_api/threads/${id}`);
+  useEffect(() => {
+    const fetchThread = async () => {
+      const response = await fetch(`/forum_api/threads/${id}`);
+      const data = await response.json();
+      setThread(data);
+    };
+
+    fetchThread();
+  }, [id]);
+
+  const getComments = useCallback(async () => {
+    const response = await fetch(`https://garexsneakorum.onrender.com/forum_api/threads/${id}/comments?page=${page}`);
     const data = await response.json();
-    setThread(data);
-  };
-
-  fetchThread();
-}, [id]);
-
-useEffect(() => {
-  let getComments = async () => {
-    let response = await fetch(`https://garexsneakorum.onrender.com/forum_api/threads/${id}/comments?page=${page}`);
-    let data = await response.json();
-    setComments(data.results);
+    setComments((prevComments) => [...prevComments, ...data.results]);
 
     if (data.next === null) {
       setHasMore(false);
+    } else {
+      setPage((prevPage) => prevPage + 1);
     }
-    else{
-    setPage(page + 1);}
-  };
+  }, [id, page]);
 
-  getComments();
-}, [id, page]);
-
-  const getMoreComments = useCallback(async () => {
-  const response = await fetch(`https://garexsneakorum.onrender.com/forum_api/threads/${id}/comments?page=${page}`);
-  const data = await response.json();
-  return data.results;
-}, [page]);
-
-  const fetchData = useCallback(async () => {
-      // get more posts from next fetch
-      let moreComments = await getMoreComments()
-
-      // update the thread state by combining data
-      setComments([...comments, ...moreComments])
-
-      // check the fetch of last page, if yes, HasMore is false
-      if (moreComments.length === 0 || moreComments.length < 10) {
-          setHasMore(false)
-      }else{
-      setPage(page + 1)}
-  }, [getMoreComments, setComments, setHasMore, setPage]);
+  useEffect(() => {
+    getComments();
+  }, [getComments]);
 
   return (
     <div className="vh-100 gradient-custom">
@@ -99,8 +79,8 @@ useEffect(() => {
           <ReplyThreadForm thread={thread} />
 
           <InfiniteScroll
-            dataLength={comments.length} //This is important field to render the next data
-            next={fetchData}
+            dataLength={comments.length}
+            next={getComments}
             hasMore={hasMore}
             loader={<h4 style={{ textAlign: 'center', marginTop: 20 }}>Loading...</h4>}
             endMessage={
