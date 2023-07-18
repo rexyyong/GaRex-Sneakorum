@@ -24,7 +24,7 @@ const SignIn = () => {
 
   const fetchSessionData = async () => {
     try {
-      const response = await fetch(`https://garexsneakorum.onrender.com/forum_api/test',
+      const response = await fetch(`https://garexsneakorum.onrender.com/forum_api/test'
       {
         method: 'GET',
         headers: {
@@ -55,7 +55,7 @@ const SignIn = () => {
   };
 
   try {
-    const response = await fetch(`https://garexsneakorum.onrender.com/forum_api/signin',
+    const response = await fetch(`https://garexsneakorum.onrender.com/forum_api/signin'
     {
       method: 'POST',
       headers: {
