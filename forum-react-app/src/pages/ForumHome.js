@@ -69,8 +69,8 @@ const ForumHome = () => {
     setThreads([]);
     setPage(1);
     setHasMore(true);
-    getThreads();
-  }, [getThreads]);
+    getMoreThreads();
+  }, [getMoreThreads]);
 
   return (
     <div className="vh-100 gradient-custom">
