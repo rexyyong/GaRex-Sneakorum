@@ -21,7 +21,7 @@ const ReplyThreadForm = ({ thread }) => {
   const handleSubmit = async () => {
     // Handle the submission of the comment here
     const csrftoken = Cookies.get('csrftoken');
-    const response = await fetch('https://garexsneakorum.onrender.com/forum_api/createComment/`, {
+    const response = await fetch('https://garexsneakorum.onrender.com/forum_api/createComment/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
