@@ -19,7 +19,7 @@ const Thread = () => {
 
   useEffect(() => {
     const fetchThread = async () => {
-      const response = await fetch(`https://garexsneakorum.onrender.com/threads/${id}`);
+      const response = await fetch(`https://garexsneakorum.onrender.com/forum_api/threads/${id}`);
       const data = await response.json();
       setThread(data.results);
     };
