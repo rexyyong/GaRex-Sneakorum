@@ -65,7 +65,7 @@ const NewThreadForm = () => {
     let handleThread = async (event) => {
         event.preventDefault();
         const csrftoken = Cookies.get('csrftoken');
-        const response = await fetch(`/forum_api/createThread/`, {
+        const response = await fetch('https://garexsneakorum.onrender.com/forum_api/createThread/`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
