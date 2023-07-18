@@ -25,7 +25,7 @@ const SignUp = () => {
     };
 
     try {
-      const response = await fetch('https://garexsneakorum.onrender.com/forum_api/signup',
+      const response = await fetch('https://garexsneakorum.onrender.com/signup',
       {
         method: 'POST',
         headers: {
