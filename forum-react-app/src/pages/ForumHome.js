@@ -27,7 +27,7 @@ const ForumHome = () => {
   useEffect(() => {
       const getThreads = async () => {
           // fetch the threads from api endpoint
-          const response = await fetch(`https://garexsneakorum.onrender.com/forum_api/threads/?page=1`)
+          const response = await fetch('https://garexsneakorum.onrender.com/forum_api/threads/?page=1')
 
           // parse the data in json
           let data = await response.json()
@@ -45,7 +45,7 @@ const ForumHome = () => {
   }, [])
 
 const getMoreThreads = useCallback(async () => {
-  const response = await fetch(`https://garexsneakorum.onrender.com/forum_api/threads/?page=${page}`);
+  const response = await fetch('https://garexsneakorum.onrender.com/forum_api/threads/?page=${page}');
   const data = await response.json();
   return data.results;
 }, [page]);

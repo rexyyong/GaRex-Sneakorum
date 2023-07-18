@@ -51,7 +51,7 @@ const Home = () => {
 
   const handleLogout = () => {
     // Make API request to sign out
-    fetch('https://garexsneakorum.onrender.com/forum_api/logout',{
+    fetch('https://garexsneakorum.onrender.com/authentication/logout',{
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
