@@ -17,40 +17,35 @@ const Thread = () => {
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
 
-  useEffect(() => {
-    const fetchThread = async () => {
-      const response = await fetch(`/forum_api/threads/${id}`);
-      const data = await response.json();
-      setThread(data);
-    };
+useEffect(() => {
+  const fetchThread = async () => {
+    const response = await fetch(`/forum_api/threads/${id}`);
+    const data = await response.json();
+    setThread(data);
+  };
 
-    fetchThread();
-  }, [id]);
+  fetchThread();
+}, [id]);
 
-  // trigger posts update
-  useEffect(() => {
-      let getComments = async () => {
-          let response = await fetch(`/forum_api/threads/${id}/comments?page=${page}`)
+useEffect(() => {
+  let getComments = async () => {
+    let response = await fetch(`https://garexsneakorum.onrender.com/forum_api/threads/${id}/comments?page=${page}`);
+    let data = await response.json();
+    setComments(data.results);
 
-          // parse the data in json
-          let data = await response.json()
+    if (data.next === null) {
+      setHasMore(false);
+    }
+    setPage(page + 1);
+  };
 
-          // update the state of threads
-          setComments(data.results)
-
-          // check if there is more posts
-          if (data.next === null) {
-            setHasMore(false)
-          }
-          setPage(page + 1)
-      }
-      getComments ()
-  }, [id])
+  getComments();
+}, [id, page]);
 
   const getMoreComments = async () => {
     try{
       // fetch the posts from api endpoint
-    const response = await fetch(`/forum_api/threads/${id}/comments?page=${page}`)
+    const response = await fetch(`https://garexsneakorum.onrender.com/forum_api/threads/${id}/comments?page=${page}`)
     // parse the data in json
     let data = await response.json()
     console.log("fetching")
