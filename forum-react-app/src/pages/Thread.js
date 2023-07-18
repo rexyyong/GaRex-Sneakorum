@@ -47,7 +47,8 @@ const Thread = () => {
     setComments([]);
     setPage(1);
     setHasMore(true);
-  }, []);
+    getComments(); // Refresh comments immediately after a new comment is submitted
+  }, [getComments]);
 
   return (
     <div className="vh-100 gradient-custom">

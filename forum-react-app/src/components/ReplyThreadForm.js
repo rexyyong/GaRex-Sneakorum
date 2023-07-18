@@ -4,7 +4,7 @@ import AddIcon from '@mui/icons-material/Add';
 import CommentIcon from '@mui/icons-material/Comment';
 import Cookies from 'js-cookie';
 
-const ReplyThreadForm = ({ thread }) => {
+const ReplyThreadForm = ({ thread, handleNewComment }) => {
   const [open, setOpen] = useState(false);
   const [comment, setComment] = useState({
     content: '',
@@ -36,6 +36,7 @@ const ReplyThreadForm = ({ thread }) => {
       thread: ''
     });
     handleClose();
+    handleNewComment();
   };
 
   const handleContentChange = (e) => {
