@@ -23,7 +23,7 @@ const Profile = () => {
                     <GarexNavbar />
                 </div>
 
-                <Container maxWidth="md">
+                <Container maxWidth="lg">
                     <Typography component="h1" variant="h3" sx={{ mb: 3 }} style={{ marginTop: '20px' }}>
                         {/* {profile?.name}'s Profile */}
                         Random's Profile
