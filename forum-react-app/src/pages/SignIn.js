@@ -4,6 +4,8 @@ import GarexSneakorumLogo from '../components/GarexSneakorumLogo';
 import { useNavigate } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 
+import './SignIn.css'
+
 const SignIn = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -45,6 +47,7 @@ const SignIn = () => {
     }
   };
 
+
  const handleSubmit = async (e) => {
   e.preventDefault();
   // Create an object with the form data
@@ -74,11 +77,7 @@ const SignIn = () => {
       // Handle failed login
       console.log('Login failed');
     }
-  } catch (error) {
-    // Handle error
-    console.error(error);
-  }
-};
+  };
 
 
   const pageTitle = "Garex Sneakorum Sign In Page";
@@ -90,8 +89,10 @@ const SignIn = () => {
       </Helmet>
 
       <div className="vh-100 gradient-custom">
-        <GarexSneakorumLogo />
-        <h1 style={{ textAlign: "center" }}>Welcome to Garex's Sneakorum!</h1>
+        <div>
+          <GarexSneakorumLogo />
+          <h1 style={{ textAlign: "center" }}>Welcome to Garex's Sneakorum!</h1>
+        </div>
 
         <div className="login-form">
           <form onSubmit={handleSubmit}>

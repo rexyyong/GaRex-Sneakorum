@@ -3,6 +3,8 @@ import { Helmet } from 'react-helmet';
 import GarexSneakorumLogo from '../components/GarexSneakorumLogo';
 import { useNavigate } from 'react-router-dom';
 
+import './SignUp.css'
+
 const SignUp = () => {
   const [username, setUsername] = useState('');
   const [pass1, setPass1] = useState('');
