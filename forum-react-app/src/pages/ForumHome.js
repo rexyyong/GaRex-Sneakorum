@@ -15,6 +15,8 @@ const ForumHome = () => {
   const [threads, setThreads] = useState([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
+  const [refreshFlag, setRefreshFlag] = useState(false);
+
 
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -42,7 +44,7 @@ const ForumHome = () => {
       }
       getThreads()
 
-  }, [])
+  }, [refreshFlag])
 
 const getMoreThreads = useCallback(async () => {
   const response = await fetch(`https://garexsneakorum.onrender.com/forum_api/threads/?page=${page}`);
@@ -85,7 +87,7 @@ useEffect(() => {
         <Grid item xs={12} md={6}>
           <div className="d-flex justify-content-between mb-3">
             <Typography variant="h5">Latest Thread</Typography>
-            <NewThreadForm />
+            <NewThreadForm setRefreshFlag={setRefreshFlag} />
           </div>
 
           <Item>

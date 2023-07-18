@@ -9,7 +9,8 @@ class ThreadSerializer(ModelSerializer):
         fields = ("id",
                   "subject",
                   "content",
-                  "created")
+                  "created",
+                  "replyCount")
 
 class CommentSerializer(ModelSerializer):
     class Meta:

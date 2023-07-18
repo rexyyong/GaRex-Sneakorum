@@ -22,7 +22,6 @@ const Thread = () => {
       const response = await fetch(`https://garexsneakorum.onrender.com/forum_api/threads/${id}`);
       const data = await response.json();
       setThread(data);
-      console.log(thread)
     };
 
     fetchThread();
