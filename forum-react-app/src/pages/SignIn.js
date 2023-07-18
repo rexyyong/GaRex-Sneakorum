@@ -13,7 +13,7 @@ const SignIn = () => {
 
     const fetchCsrfToken = async () => {
       try {
-        const response = await fetch('https://garexsneakorum.onrender.com/authentication/get-csrf-token/');
+        const response = await fetch('https://garexsneakorum.onrender.com/authentication/get-csrf-token');
         const data = await response.json();
         const csrfToken = data.csrfToken;
         // Use the csrfToken in your subsequent fetch requests

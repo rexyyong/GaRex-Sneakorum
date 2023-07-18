@@ -11,5 +11,5 @@ urlpatterns = [
     path('forum', views.react_app, name='forum'),
     path('get-session-user', views.session, name='session'),
     path('test', views.test, name='test'),
-    path('get-csrf-token/', views.get_csrf_token, name='get_csrf_token'),
+    path('get-csrf-token', views.get_csrf_token, name='get_csrf_token'),
 ]
