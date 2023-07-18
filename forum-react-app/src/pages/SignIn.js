@@ -13,27 +13,27 @@ const SignIn = () => {
   const [sessionData, setSessionData] = useState(null);
   let csrfToken;
 
-    const fetchCsrfToken = async () => {
-      try {
-        const response = await fetch('https://garexsneakorum.onrender.com/get-csrf-token');
-        const data = await response.json();
-        const csrfToken = data.csrfToken;
-        // Use the csrfToken in your subsequent fetch requests
-      } catch (error) {
-        console.error('Error fetching CSRF token:', error);
-      }
-    };
+  const fetchCsrfToken = async () => {
+    try {
+      const response = await fetch('https://garexsneakorum.onrender.com/get-csrf-token');
+      const data = await response.json();
+      const csrfToken = data.csrfToken;
+      // Use the csrfToken in your subsequent fetch requests
+    } catch (error) {
+      console.error('Error fetching CSRF token:', error);
+    }
+  };
 
   const fetchSessionData = async () => {
     try {
       const response = await fetch('https://garexsneakorum.onrender.com/test',
-      {
-        method: 'GET',
-        headers: {
-        'X-CSRFToken': csrfToken,
-      },
-        credentials: 'include', // Include credentials (session cookie) in the request
-      });
+        {
+          method: 'GET',
+          headers: {
+            'X-CSRFToken': csrfToken,
+          },
+          credentials: 'include', // Include credentials (session cookie) in the request
+        });
 
       if (response.ok) {
         const data = await response.json();
@@ -48,34 +48,38 @@ const SignIn = () => {
   };
 
 
- const handleSubmit = async (e) => {
-  e.preventDefault();
-  // Create an object with the form data
-  await fetchCsrfToken();
-  const formData = {
-    username: username,
-    password: password
-  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // Create an object with the form data
+    await fetchCsrfToken();
+    const formData = {
+      username: username,
+      password: password
+    };
 
-  try {
-    const response = await fetch('https://garexsneakorum.onrender.com/signin',
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRFToken': csrfToken,
-      },
-      body: JSON.stringify(formData)
-    });
+    try {
+      const response = await fetch('https://garexsneakorum.onrender.com/signin',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken,
+          },
+          body: JSON.stringify(formData)
+        });
 
-    if (response.ok) {
-      // Handle successful login
-      console.log('Login successful');
-      fetchSessionData();
-      navigate('/home'); // Redirect to the dashboard page
-    } else {
-      // Handle failed login
-      console.log('Login failed');
+      if (response.ok) {
+        // Handle successful login
+        console.log('Login successful');
+        fetchSessionData();
+        navigate('/home'); // Redirect to the dashboard page
+      } else {
+        // Handle failed login
+        console.log('Login failed');
+      }
+    } catch (error) {
+      // Handle error
+      console.error(error);
     }
   };
 
@@ -87,12 +91,10 @@ const SignIn = () => {
       <Helmet>
         <title>{pageTitle}</title>
       </Helmet>
-
       <div className="vh-100 gradient-custom">
-        <div>
-          <GarexSneakorumLogo />
-          <h1 style={{ textAlign: "center" }}>Welcome to Garex's Sneakorum!</h1>
-        </div>
+
+        <GarexSneakorumLogo />
+        <h1 style={{ textAlign: "center" }}>Welcome to Garex's Sneakorum!</h1>
 
         <div className="login-form">
           <form onSubmit={handleSubmit}>
