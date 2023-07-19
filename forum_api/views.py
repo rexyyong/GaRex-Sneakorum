@@ -83,3 +83,13 @@ def getComments(request, thread_id):
     serializer = CommentSerializer(result_page, many=True)
 
     return paginator.get_paginated_response(serializer.data)
+
+@api_view(['GET'])
+def searchThread(request, query):
+    filtered_threads = Thread.objects.filter(subject__icontains=query)
+    serializer = ThreadSerializer(filtered_threads, many=True)
+    serialized_threads = serializer.data
+
+    # Return the JSON response with the serialized threads
+    return JsonResponse({'threads': serialized_threads})
+

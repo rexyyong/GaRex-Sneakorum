@@ -105,6 +105,20 @@ const ForumHome = () => {
       });
   };
 
+  const handleSearch = useCallback(async (searchQuery) => {
+    try {
+      const response = await fetch(
+        `https://garexsneakorum.onrender.com/forum_api/search/${searchQuery}`
+      );
+      const data = await response.json();
+
+      setThreads(data.results);
+      setHasMore(false);
+    } catch (error) {
+      console.error("Error fetching filtered threads:", error);
+    }
+  }, []);
+
   return (
     <div className="vh-100 gradient-custom">
       <GarexSneakorumLogo />
@@ -113,7 +127,7 @@ const ForumHome = () => {
       <button onClick={handleLogout}>Logout</button>
 
       <GarexNavbar />
-      <GarexSearchbar />
+      <GarexSearchbar onSearch={handleSearch} />
 
       <Container maxWidth="lg">
         <div style={{ marginTop: 20 }}>
