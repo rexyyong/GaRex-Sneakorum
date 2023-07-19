@@ -121,7 +121,7 @@ const ForumHome = () => {
   } catch (error) {
     console.error("Error fetching filtered threads:", error);
   }
-}, []);
+}, [setThreads, setHasMore]);
 
   return (
     <div className="vh-100 gradient-custom">
