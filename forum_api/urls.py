@@ -7,4 +7,5 @@ urlpatterns = [
     path('createThread/', views.createThread, name='createThread'),
     path('createComment/', views.createComment, name='createComment'),
     path('threads/<int:thread_id>/comments', views.getComments, name='comments'),
+    path('search/<str:query>', views.searchThread, name='search'),
 ]
