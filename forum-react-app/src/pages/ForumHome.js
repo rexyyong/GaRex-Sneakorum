@@ -105,8 +105,6 @@ const ForumHome = () => {
       });
   };
 
-<<<<<<< Updated upstream
-=======
   const handleSearch = useCallback(async (searchQuery) => {
     try {
       const response = await fetch(
@@ -125,7 +123,6 @@ const ForumHome = () => {
   }
 }, []);
 
->>>>>>> Stashed changes
   return (
     <div className="vh-100 gradient-custom">
       <GarexSneakorumLogo />
@@ -134,7 +131,7 @@ const ForumHome = () => {
       <button onClick={handleLogout}>Logout</button>
 
       <GarexNavbar />
-      <GarexSearchbar />
+      <GarexSearchbar onSearch={handleSearch} />
 
       <Container maxWidth="lg">
         <div style={{ marginTop: 20 }}>

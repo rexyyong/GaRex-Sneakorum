@@ -83,8 +83,7 @@ def getComments(request, thread_id):
     serializer = CommentSerializer(result_page, many=True)
 
     return paginator.get_paginated_response(serializer.data)
-<<<<<<< Updated upstream
-=======
+
 
 @api_view(['GET'])
 def searchThread(request, query):
@@ -95,4 +94,3 @@ def searchThread(request, query):
     # Return the JSON response with the serialized threads
     return JsonResponse({'threads': serialized_threads})
 
->>>>>>> Stashed changes
