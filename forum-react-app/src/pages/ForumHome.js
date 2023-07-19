@@ -105,6 +105,27 @@ const ForumHome = () => {
       });
   };
 
+<<<<<<< Updated upstream
+=======
+  const handleSearch = useCallback(async (searchQuery) => {
+    try {
+      const response = await fetch(
+        `https://garexsneakorum.onrender.com/forum_api/search/${searchQuery}`
+      );
+      const data = await response.json();
+
+    if (Array.isArray(data.results)) {
+      setThreads(data.results);
+    } else {
+      setThreads([]); // If data.results is not an array, set an empty array to clear the threads
+    }
+    setHasMore(false);
+  } catch (error) {
+    console.error("Error fetching filtered threads:", error);
+  }
+}, []);
+
+>>>>>>> Stashed changes
   return (
     <div className="vh-100 gradient-custom">
       <GarexSneakorumLogo />
