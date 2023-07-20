@@ -37,17 +37,17 @@ const Home = () => {
             fetchSessionData();
           }, []);
 
-//    fetch('http://127.0.0.1:8000/get-session-user', {
-//      credentials: 'include', // Include credentials (session cookie) in the request
-//    })
-//      .then(response => response.json())
-//      .then(data => {
-//        setUsername(data.username);
-//      })
-//      .catch(error => {
-//        console.error('Error fetching username:', error);
-//      });
-//  }, []);
+    fetch('https://garexsneakorum.onrender.com/get-session-user', {
+      credentials: 'include', // Include credentials (session cookie) in the request
+    })
+      .then(response => response.json())
+      .then(data => {
+        setUsername(data.username);
+      })
+      .catch(error => {
+        console.error('Error fetching username:', error);
+      });
+  }, []);
 
   const handleLogout = () => {
     // Make API request to sign out
