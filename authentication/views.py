@@ -77,7 +77,7 @@ def session(request):
     print(request.session.session_key)
     if request.user.is_authenticated:
         print('test2')
-        username = request.user.username
+        username = request.session['username']
         print(username)
         return JsonResponse({'username': username})
     else:

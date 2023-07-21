@@ -15,6 +15,7 @@ const Home = () => {
   useEffect(() => {
     // Make a request to your Django backend to retrieve the session token and user's username
     // Here, you can use the fetch API or a library like Axios
+    const timestamp = Date.now();
     const fetchUserData = async () => {
       try {
         const response = await fetch('https://garexsneakorum.onrender.com/get-session-user', {
