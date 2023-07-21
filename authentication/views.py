@@ -53,14 +53,11 @@ def signin(request):
         request.session['username'] = username
         request.session.modified = True
         request.session.save()
-        # for key in request.session.keys():
-        #     print(key)
         # print(request.session['username'])
         # fname = user.first_name
         if request.session.session_key and request.user.is_authenticated:
-            print(request.session.session_key)
-            # print(request.session['username'])
-            print(vars(request.user))
+            for key in request.session.keys():
+                print(key)
             return JsonResponse({'message': 'Login successful'}, status=200)
     else:
         return JsonResponse({'message': 'Login unsuccessful'}, status=300)
