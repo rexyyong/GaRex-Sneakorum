@@ -78,18 +78,17 @@ def session(request):
     if request.user.is_authenticated:
         print('test2')
         username = request.user.username
-        for key in request.session.keys():
-            print(key)
+        print(username)
         return JsonResponse({'username': username})
     else:
         return JsonResponse({'message': 'Unsuccessful'},status=401)
 @api_view(['GET'])
 def test(request):
-    print('testing...')
-    print(request.session.session_key)
-    print(vars(request.user))
+    # print('testing...')
+    # print(request.session.session_key)
+    # print(vars(request.user))
     if request.session.session_key:
-        print(request.session.session_key)
+    #     print(request.session.session_key)
         return JsonResponse({'sessionData': request.session.session_key})
     else:
         print("failure")
