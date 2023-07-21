@@ -16,26 +16,26 @@ const Home = () => {
     // Make a request to your Django backend to retrieve the session token and user's username
     // Here, you can use the fetch API or a library like Axios
 
-        const fetchSessionData = async () => {
-              try {
-                const response = await fetch('http://127.0.0.1:8000/test', {
-                  method: 'GET',
-                  credentials: 'include', // Include credentials (session cookie) in the request
-                });
+    const fetchSessionData = async () => {
+          try {
+            const response = await fetch('https://garexsneakorum.onrender.com/test', {
+              method: 'GET',
+              credentials: 'include', // Include credentials (session cookie) in the request
+            });
 
-                if (response.ok) {
-                  const data = await response.json();
-                  setSessionData(data);
-                } else {
-                  console.log('Failed to fetch session data');
-                }
-              } catch (error) {
-                console.error('Error fetching session data:', error);
-              }
-            };
+            if (response.ok) {
+              const data = await response.json();
+              setSessionData(data);
+            } else {
+              console.log('Failed to fetch session data');
+            }
+          } catch (error) {
+            console.error('Error fetching session data:', error);
+          }
+        };
 
-            fetchSessionData();
-          }, []);
+        fetchSessionData();
+      }, []);
 
     fetch('https://garexsneakorum.onrender.com/get-session-user', {
       credentials: 'include', // Include credentials (session cookie) in the request
