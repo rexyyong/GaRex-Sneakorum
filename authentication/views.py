@@ -69,16 +69,22 @@ def logout_view(request: Request) -> Response:
     return JsonResponse({'message': 'Logout successful'}, status=200)
 
 # @login_required
+@login_required
 def session(request):
-    print('test')
-    print(request.session.session_key)
+    # If the user is authenticated (logged in)
     if request.user.is_authenticated:
-        print('test2')
-        username = request.session['username']
-        print(username)
-        return JsonResponse({'username': username})
+        for key in request.session.keys():
+            print(key)
+        # Check if the 'username' key exists in the session
+        if 'username' in request.session:
+            username = request.session['username']
+            print(username)  # Print the username to the console for debugging purposes
+            return JsonResponse({'username': username})
+        else:
+            return JsonResponse({'message': 'Username not found in session'}, status=400)
     else:
-        return JsonResponse({'message': 'Unsuccessful'},status=401)
+        return JsonResponse({'message': 'Unauthenticated'}, status=401)
+
 @api_view(['GET'])
 def test(request):
     # print('testing...')
