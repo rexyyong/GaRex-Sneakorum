@@ -5,6 +5,7 @@ import GarexNavbar from '../components/GarexNavbar';
 
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
+import { Box } from '@mui/material';
 import Container from '@mui/material/Container'
 import { useNavigate } from 'react-router-dom';
 
@@ -56,6 +57,19 @@ const AboutUs = () => {
                     <button onClick={handleLogout}>Logout</button>
                     <GarexNavbar />
                 </div>
+                <Container maxWidth='lg'  >
+                    <Box marginTop={2}>
+
+                        <Typography variant="h1" gutterBottom>
+                            NO MORE L'S, ONLY W'S
+                        </Typography>
+
+                        <Typography variant="h3" gutterBottom>
+                            GaRex's Sneakorum is an online sneaker forum where Students in NUS can use to see the latest info on Sneaker drops, share tips on copping limited edition sneakers, and also a marketplace for buying/selling/trading such sneakers. Through this, we hope to spread our love for sneakers in NUS, and also to help students in NUS socialize through sneakers.
+                        </Typography>
+
+                    </Box>
+                </Container>
 
             </div>
         </>
