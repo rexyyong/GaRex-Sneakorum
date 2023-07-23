@@ -8,6 +8,7 @@ import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
+import AboutUs from './pages/AboutUs';
 
 import { BrowserRouter as Router, Switch, Route, Routes } from 'react-router-dom';
 
@@ -24,6 +25,7 @@ function App() {
           <Route path="/forum" element={<ForumHome />} />
           <Route path="/threads/:id" element={<Thread />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/about" element={<AboutUs />} />
 
         </Routes>
     </Router>
