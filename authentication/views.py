@@ -9,15 +9,20 @@ from rest_framework.request import Request
 from django.middleware.csrf import get_token
 from django.contrib.auth.decorators import login_required
 
+
 def get_csrf_token(request):
     csrf_token = get_token(request)
     return JsonResponse({'csrfToken': csrf_token})
+
+
 # Create your views here.
 def index(request):
     return render(request, "authentication/index.html")
 
+
 def home(request):
     return render(request, "authentication/home.html")
+
 
 @api_view(['POST'])
 def signup(request):
@@ -56,11 +61,12 @@ def signin(request):
         # print(request.session['username'])
         # fname = user.first_name
         if request.session.session_key and request.user.is_authenticated:
-            for key in request.session.keys():
-                print(key)
+            # for key in request.session.keys():
+            #     print(key)
             return JsonResponse({'message': 'Login successful'}, status=200)
     else:
         return JsonResponse({'message': 'Login unsuccessful'}, status=300)
+
 
 @api_view(['POST'])
 def logout_view(request: Request) -> Response:
@@ -68,8 +74,7 @@ def logout_view(request: Request) -> Response:
     # request.session.flush()
     return JsonResponse({'message': 'Logout successful'}, status=200)
 
-# @login_required
-@login_required
+
 def session(request):
     # If the user is authenticated (logged in)
     if request.user.is_authenticated:
@@ -85,16 +90,19 @@ def session(request):
     else:
         return JsonResponse({'message': 'Unauthenticated'}, status=401)
 
+
 @api_view(['GET'])
 def test(request):
     # print('testing...')
     # print(request.session.session_key)
     # print(vars(request.user))
     if request.session.session_key:
-    #     print(request.session.session_key)
+        #     print(request.session.session_key)
         return JsonResponse({'sessionData': request.session.session_key})
     else:
         print("failure")
         return JsonResponse({'sessionData': 'nil'})
+
+
 def react_app(request):
     return render(request, "index.html")
