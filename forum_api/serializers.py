@@ -10,6 +10,7 @@ class ThreadSerializer(ModelSerializer):
                   "subject",
                   "content",
                   "created",
+                  "user",
                   "replyCount")
 
 class CommentSerializer(ModelSerializer):
