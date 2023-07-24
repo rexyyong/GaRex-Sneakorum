@@ -24,6 +24,9 @@ const ItemBox = ({ image, description, price, release_date, link }) => (
 const Calendar = () => {
     return (
         <Container maxWidth="md" className='custom-margin-top'>
+            <Typography color='white' variant='h2' mt={2} mb={2} align='center' >
+                Upcoming Drops
+            </Typography>
             <Grid container spacing={2}>
                 {ItemData.map((item, index) => (
                     <Grid item xs={12} sm={6} md={4} key={index}>
