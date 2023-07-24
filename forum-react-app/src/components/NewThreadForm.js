@@ -51,57 +51,31 @@ const NewThreadForm = ({ handleNewThread }) => {
     handleClose();
   };
 
- const handleThread = async (event) => {
-  event.preventDefault();
-
-  // Retrieve the username from local storage
-  const storedUsername = localStorage.getItem('username');
-
-  // Fetch the user instance based on the username
-  const response = await fetch(`https://garexsneakorum.onrender.com/forum_api/getUser/${storedUsername}/`);
-  const data = await response.json();
-
-  // Check if user data is available
-  if (data.length === 0) {
-    console.error('User not found.');
-    return;
-  }
-
-  // Get the user instance from the response
-  const user = data[0];
-
-  // Create the new thread object with the user instance
-  const newThread = {
-    subject: thread.subject,
-    content: thread.content,
-    user: user.id, // Use the user instance's ID
+  const handleThread = async (event) => {
+    event.preventDefault();
+    const storedUsername = localStorage.getItem('username');
+    setThread((prevThread) => ({
+      ...prevThread,
+      user: storedUsername // Set the username in the thread state
+    }));
+    const csrftoken = Cookies.get('csrftoken');
+    const response = await fetch('https://garexsneakorum.onrender.com/forum_api/createThread/', {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrftoken,
+      },
+      body: JSON.stringify(thread),
+    });
+    const data = await response.json();
+    setThread({
+      subject: "",
+      content: "",
+      user: "" // Initialize with an empty string
+    });
+    handleClose();
+    handleNewThread();
   };
-
-  // Send the new thread data to the backend API
-  const csrftoken = Cookies.get('csrftoken');
-  const createResponse = await fetch('https://garexsneakorum.onrender.com/forum_api/createThread/', {
-    method: "POST",
-    headers: {
-      'Content-Type': 'application/json',
-      'X-CSRFToken': csrftoken,
-    },
-    body: JSON.stringify(newThread),
-  });
-
-  const responseData = await createResponse.json();
-
-  // Handle the response from the backend as needed
-  // ...
-
-  setThread({
-    subject: "",
-    content: "",
-    user: ""
-  });
-  handleClose();
-  handleNewThread();
-};
-
 
 
   return (

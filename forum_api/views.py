@@ -7,8 +7,6 @@ from rest_framework.decorators import api_view
 from django.http import JsonResponse
 import json
 from rest_framework import status
-from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404
 
 # Create your views here.
 
@@ -37,7 +35,7 @@ def getThread(request, thread_id):
 @api_view(['POST'])
 def createThread(request):
     data = request.data
-    user = get_object_or_404(User, username=data['user'])
+    user = data['user']
     subject = data['subject']
     content = data['content']
     new_thread = Thread.objects.create(
@@ -111,10 +109,4 @@ def profile(request, username):
         return Response({'message': 'No threads found for this username'}, status=status.HTTP_404_NOT_FOUND)
     except Exception as e:
         return Response({'message': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-@api_view(['GET'])
-def get_user_by_username(request, username):
-    user = get_object_or_404(User, username=username)
-    serializer = UserSerializer(user)
-    return JsonResponse(serializer.data, status=status.HTTP_200_OK)
 
