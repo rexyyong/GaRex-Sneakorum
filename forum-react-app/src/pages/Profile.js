@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import GarexSneakorumLogo from '../components/GarexSneakorumLogo';
 import GarexNavbar from '../components/GarexNavbar';
@@ -6,7 +6,6 @@ import GarexNavbar from '../components/GarexNavbar';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import Container from '@mui/material/Container'
-
 import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
@@ -15,6 +14,12 @@ const Profile = () => {
     const navigate = useNavigate();
 
     const pageTitle = "Garex Sneakorum User Profile Page";
+
+    useEffect(() => {
+    // Retrieve the username from local storage
+    const storedUsername = localStorage.getItem('username');
+    setUsername(storedUsername);
+  }, []);
 
     const handleLogout = () => {
         // Make API request to sign out
@@ -30,6 +35,7 @@ const Profile = () => {
             .then(response => {
                 if (response.ok) {
                     // Handle successful sign out
+                    localStorage.removeItem('username');
                     console.log('Sign out successful');
                     navigate('/signin');
                 } else {
@@ -52,7 +58,6 @@ const Profile = () => {
             <div className="vh-100 gradient-custom">
                 <div>
                     <GarexSneakorumLogo />
-
                     <h3>Hello {username}</h3>
                     <h4>You are successfully logged in</h4>
                     <button onClick={handleLogout}>Logout</button>

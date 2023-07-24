@@ -20,17 +20,10 @@ from django.views.generic import TemplateView
 from django.conf import settings
 from django.conf.urls.static import static
 
-from forum_api import views
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('authentication.urls')),
     # path('', include('forum_api.urls')),
-    # path('forum_api/', include('forum_api.urls')),
-    path('forum_api/', include(('forum_api.urls', 'forum_api'))),
-    re_path(r'^(?:.*)/?$', TemplateView.as_view(template_name="index.html")),
-# =======
-#     path('forum_api/', include('forum_api.urls')),
-#     # re_path(r'^(?:.*)/?$', TemplateView.as_view(template_name="index.html")),
-# >>>>>>> rex-production-test
+    path('forum_api/', include('forum_api.urls')),
+    # re_path(r'^(?:.*)/?$', TemplateView.as_view(template_name="index.html")),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
