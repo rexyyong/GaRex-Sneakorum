@@ -4,7 +4,7 @@ import AddIcon from '@mui/icons-material/Add';
 import CommentIcon from '@mui/icons-material/Comment';
 import Cookies from 'js-cookie';
 
-const ReplyThreadForm = ({ thread }) => {
+const ReplyThreadForm = ({ thread, handleNewComment }) => {
   const [open, setOpen] = useState(false);
   const [comment, setComment] = useState({
     content: '',
@@ -21,7 +21,7 @@ const ReplyThreadForm = ({ thread }) => {
   const handleSubmit = async () => {
     // Handle the submission of the comment here
     const csrftoken = Cookies.get('csrftoken');
-    const response = await fetch(`/forum_api/createComment/`, {
+    const response = await fetch('https://garexsneakorum.onrender.com/forum_api/createComment/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -36,6 +36,7 @@ const ReplyThreadForm = ({ thread }) => {
       thread: ''
     });
     handleClose();
+    handleNewComment();
   };
 
   const handleContentChange = (e) => {

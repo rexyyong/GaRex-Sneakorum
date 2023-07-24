@@ -27,7 +27,8 @@ const SignUp = () => {
     };
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/signup', {
+      const response = await fetch('https://garexsneakorum.onrender.com/signup',
+      {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

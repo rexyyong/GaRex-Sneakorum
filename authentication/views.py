@@ -4,13 +4,25 @@ from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.contrib import messages
 from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework.request import Request
+from django.middleware.csrf import get_token
+from django.contrib.auth.decorators import login_required
+
+
+def get_csrf_token(request):
+    csrf_token = get_token(request)
+    return JsonResponse({'csrfToken': csrf_token})
+
 
 # Create your views here.
 def index(request):
     return render(request, "authentication/index.html")
 
+
 def home(request):
     return render(request, "authentication/home.html")
+
 
 @api_view(['POST'])
 def signup(request):
@@ -43,16 +55,59 @@ def signin(request):
 
     if user is not None:
         login(request, user)
+        request.session['username'] = username
+        request.session.modified = True
+        request.session.save()
+        print("Session key at login:", request.session.session_key)
+        # print(request.session['username'])
         # fname = user.first_name
-        return JsonResponse({'message': 'Login successful'}, status=200)
+        if request.session.session_key and request.user.is_authenticated:
+            # for key in request.session.keys():
+            #     print(key)
+            print("signin says user is authenticated")
+            return JsonResponse({'message': 'Login successful', 'username': username}, status=200)
     else:
         return JsonResponse({'message': 'Login unsuccessful'}, status=300)
 
-def signout(request):
-    logout(request)
-    messages.success(request, "Logged out Successfully")
-    return render(request, "authentication/index.html")
 
+@api_view(['POST'])
+def logout_view(request: Request) -> Response:
+    logout(request)
+    # request.session.flush()
+    return JsonResponse({'message': 'Logout successful'}, status=200)
+
+
+def session(request):
+    # If the user is authenticated (logged in)
+    print("Session key at session:", request.session.session_key)
+    if request.user.is_authenticated:
+        for key in request.session.keys():
+            print(key)
+        # Check if the 'username' key exists in the session
+        if 'username' in request.session:
+            username = request.session['username']
+            print(username)  # Print the username to the console for debugging purposes
+            return JsonResponse({'username': username})
+        else:
+            return JsonResponse({'message': 'Username not found in session'}, status=400)
+    else:
+        return JsonResponse({'message': 'Unauthenticated'}, status=401)
+
+
+@api_view(['GET'])
+def test(request):
+    print('testing...')
+    print("Session key at test:", request.session.session_key)
+    # print(request.session.session_key)
+    # print(vars(request.user))
+    if request.user.is_authenticated:
+        print(vars(request.user))
+    if request.session.session_key:
+        #     print(request.session.session_key)
+        return JsonResponse({'sessionData': request.session.session_key})
+    else:
+        print("test is a failure FUCK")
+        return JsonResponse({'sessionData': 'nil'})
 
 def react_app(request):
     return render(request, "index.html")

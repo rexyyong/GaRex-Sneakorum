@@ -3,6 +3,11 @@ import { Helmet } from 'react-helmet';
 import GarexSneakorumLogo from '../components/GarexSneakorumLogo';
 import { useNavigate } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
+import Alert from '@mui/material/Alert';
+import { Snackbar } from '@mui/material';
+
+
+import './SignIn.css'
 
 import './SignIn.css'
 
@@ -12,44 +17,68 @@ const SignIn = () => {
   const [submitted, setSubmitted] = useState(false); // State to track form submission
 
   const navigate = useNavigate();
+  const [wrongPasswordAlert, setPasswordAlert] = useState(false);
+
+
+  const fetchCsrfToken = async () => {
+    try {
+      const response = await fetch('https://garexsneakorum.onrender.com/get-csrf-token');
+      const data = await response.json();
+      return data.csrfToken;
+      // Use the csrfToken in your subsequent fetch requests
+    } catch (error) {
+      console.error('Error fetching CSRF token:', error);
+    }
+  };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    setSubmitted(true); // Set submitted to true when the form is submitted
-
-    // Check if the fields are empty before submitting the form
-    if (username.trim() === '' || password.trim() === '') {
-      return; // Exit early if fields are empty
-    }
-
     // Create an object with the form data
+    const csrfToken = await fetchCsrfToken();
     const formData = {
       username: username,
       password: password
     };
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/signin', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-      });
+      const response = await fetch('https://garexsneakorum.onrender.com/signin',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken,
+          },
+          body: JSON.stringify(formData)
+        });
 
       if (response.ok) {
         // Handle successful login
+        const responseData = await response.json();
+        const receivedUsername = responseData.username; // Get the username from the response
+        // Store the received username in local storage
+        localStorage.setItem('username', receivedUsername);
         console.log('Login successful');
+        await fetch('https://garexsneakorum.onrender.com/test', {
+        credentials: 'include',
+         headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken,
+          },});
         navigate('/home'); // Redirect to the dashboard page
       } else {
         // Handle failed login
         console.log('Login failed');
+        setPasswordAlert(true);
       }
     } catch (error) {
       // Handle error
       console.error(error);
     }
+  };
+
+  const handleCloseAlert = () => {
+    setPasswordAlert(false);
   };
 
 
@@ -60,12 +89,12 @@ const SignIn = () => {
       <Helmet>
         <title>{pageTitle}</title>
       </Helmet>
-
       <div className="vh-100 gradient-custom">
         <div>
           <GarexSneakorumLogo />
           <h1 style={{ textAlign: "center" }}>Welcome to Garex's Sneakorum!</h1>
         </div>
+
 
         <div className="login-form">
           <form data-testid="login-form" onSubmit={handleSubmit}>
@@ -106,6 +135,18 @@ const SignIn = () => {
               <button data-testid='login-button' type="submit" className="btn btn-primary btn-block">
                 Log in
               </button>
+            </div>
+            <div>
+              <Snackbar 
+              open={wrongPasswordAlert} 
+              autoHideDuration={5000}
+              onClose={handleCloseAlert}
+              anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+              >
+                <Alert onClose={handleCloseAlert} severity="warning">
+                  Please key in the correct username/password!
+                </Alert>
+              </Snackbar>
             </div>
             <div className="clearfix">
               <label className="pull-left checkbox-inline">

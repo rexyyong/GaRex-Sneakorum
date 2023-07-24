@@ -29,4 +29,8 @@ urlpatterns = [
     # path('forum_api/', include('forum_api.urls')),
     path('forum_api/', include(('forum_api.urls', 'forum_api'))),
     re_path(r'^(?:.*)/?$', TemplateView.as_view(template_name="index.html")),
+# =======
+#     path('forum_api/', include('forum_api.urls')),
+#     # re_path(r'^(?:.*)/?$', TemplateView.as_view(template_name="index.html")),
+# >>>>>>> rex-production-test
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

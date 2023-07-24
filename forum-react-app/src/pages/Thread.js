@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { CardContent, CardActions, Typography, Container, Grid, IconButton, Card } from '@mui/material';
 import ShareIcon from '@mui/icons-material/Share';
@@ -19,7 +19,7 @@ const Thread = () => {
 
   useEffect(() => {
     const fetchThread = async () => {
-      const response = await fetch(`/forum_api/threads/${id}`);
+      const response = await fetch(`https://garexsneakorum.onrender.com/forum_api/threads/${id}`);
       const data = await response.json();
       setThread(data);
     };
@@ -27,55 +27,28 @@ const Thread = () => {
     fetchThread();
   }, [id]);
 
-  // trigger posts update
-  useEffect(() => {
-      let getComments = async () => {
-          let response = await fetch(`/forum_api/threads/${id}/comments?page=${page}`)
+  const getComments = useCallback(async () => {
+    const response = await fetch(`https://garexsneakorum.onrender.com/forum_api/threads/${id}/comments?page=${page}`);
+    const data = await response.json();
+    setComments((prevComments) => [...prevComments, ...data.results]);
 
-          // parse the data in json
-          let data = await response.json()
-
-          // update the state of threads
-          setComments(data.results)
-
-          // check if there is more posts
-          if (data.next === null) {
-            setHasMore(false)
-          }
-          setPage(page + 1)
-      }
-      getComments ()
-  }, [id])
-
-  const getMoreComments = async () => {
-    try{
-      // fetch the posts from api endpoint
-    const response = await fetch(`/forum_api/threads/${id}/comments?page=${page}`)
-    // parse the data in json
-    let data = await response.json()
-    console.log("fetching")
-
-    return data.results
-
-    } catch (err) {
-      console.log("No next page.")
+    if (data.next === null) {
+      setHasMore(false);
+    } else {
+      setPage((prevPage) => prevPage + 1);
     }
+  }, [id, page]);
 
-  }
+  useEffect(() => {
+    getComments();
+  }, [getComments]);
 
-  const fetchData = async () => {
-      // get more posts from next fetch
-      let moreComments = await getMoreComments()
-
-      // update the thread state by combining data
-      setComments([...comments, ...moreComments])
-
-      // check the fetch of last page, if yes, HasMore is false
-      if (moreComments.length === 0 || moreComments.length < 10) {
-          setHasMore(false)
-      }
-      setPage(page + 1)
-  }
+  const handleNewComment = useCallback(() => {
+    setComments([]);
+    setPage(1);
+    setHasMore(true);
+    getComments(); // Refresh comments immediately after a new comment is submitted
+  }, [getComments]);
 
   return (
     <div className="vh-100 gradient-custom">
@@ -110,11 +83,11 @@ const Thread = () => {
             </CardActions>
           </Card>
 
-          <ReplyThreadForm thread={thread} />
+          <ReplyThreadForm thread={thread} handleNewComment={handleNewComment} />
 
           <InfiniteScroll
-            dataLength={comments.length} //This is important field to render the next data
-            next={fetchData}
+            dataLength={comments.length}
+            next={getComments}
             hasMore={hasMore}
             loader={<h4 style={{ textAlign: 'center', marginTop: 20 }}>Loading...</h4>}
             endMessage={
