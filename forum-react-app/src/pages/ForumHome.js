@@ -22,6 +22,12 @@ const ForumHome = () => {
   const [username, setUsername] = useState('');
   const navigate = useNavigate();
 
+    useEffect(() => {
+    // Retrieve the username from local storage
+    const storedUsername = localStorage.getItem('username');
+    setUsername(storedUsername);
+  }, []);
+
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
     ...theme.typography.body2,
@@ -92,6 +98,7 @@ const ForumHome = () => {
       .then(response => {
         if (response.ok) {
           // Handle successful sign out
+          localStorage.removeItem('username');
           console.log('Sign out successful');
           navigate('/signin');
         } else {
