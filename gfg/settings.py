@@ -163,6 +163,7 @@ SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 #
 # SESSION_COOKIE_SAMESITE = 'None'
 SESSION_COOKIE_SECURE = False
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 #
 #
 # SESSION_COOKIE_SAMESITE = 'None'

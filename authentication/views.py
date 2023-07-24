@@ -58,11 +58,13 @@ def signin(request):
         request.session['username'] = username
         request.session.modified = True
         request.session.save()
+        print("Session key at login:", request.session.session_key)
         # print(request.session['username'])
         # fname = user.first_name
         if request.session.session_key and request.user.is_authenticated:
             # for key in request.session.keys():
             #     print(key)
+            print("signin says user is authenticated")
             return JsonResponse({'message': 'Login successful'}, status=200)
     else:
         return JsonResponse({'message': 'Login unsuccessful'}, status=300)
@@ -77,6 +79,7 @@ def logout_view(request: Request) -> Response:
 
 def session(request):
     # If the user is authenticated (logged in)
+    print("Session key at session:", request.session.session_key)
     if request.user.is_authenticated:
         for key in request.session.keys():
             print(key)
@@ -93,7 +96,8 @@ def session(request):
 
 @api_view(['GET'])
 def test(request):
-    # print('testing...')
+    print('testing...')
+    print("Session key at test:", request.session.session_key)
     # print(request.session.session_key)
     # print(vars(request.user))
     if request.user.is_authenticated:
@@ -102,9 +106,8 @@ def test(request):
         #     print(request.session.session_key)
         return JsonResponse({'sessionData': request.session.session_key})
     else:
-        print("failure")
+        print("test is a failure FUCK")
         return JsonResponse({'sessionData': 'nil'})
-
 
 def react_app(request):
     return render(request, "index.html")
