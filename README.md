@@ -17,9 +17,10 @@ Garex Sneakorum is built using DJango and React.js. So far, the web application 
 
 
 ## Functions and features
-As of Milestone 2, the available features are 
+As of Milestone 3, the available features are 
 * Authentication function. Users can log in and log out of the web page
-* Basic forum functions. Users can add new threads, as well as access other threads available on web page. 
+* Sneaker Forum. Users can create threads and comment on them, as well as use keywords to search for other threads.
+* Calendar. Users can see latest sneaker releases on the homepage.
 
 ## Technologies
 Project is created with:
@@ -45,14 +46,13 @@ The image below shows the files structrure of the project. **Note that the front
 
 `authentication` is the DJango APP in charge of all authentication related things in the web page. 
 -   `./urls.py` routes of the authentication app.
--   `./views.py` consists of different functions to enable authentication of user. The html pages are retrived from `templates/auythentication` folder shown in diagram. 
--   `./models.py` declares the tables and fields for our authentication databse  
+-   `./views.py` consists of different functions to enable authentication of user. The html pages are retrived from `templates/authentication` folder shown in diagram. 
+-   `./models.py` declares the tables and fields for our authentication database  
   <br>
 
 `forum_api` is the DJango APP in charge of the api related functions between frontend and backend. 
 -   `./models.py` defined database models for forum. 
 -   `./serializers.py` different classes to serialize database models
--   `./signals.py` automatically generate profile for each user creation
 -   `./tests.py` empty file
 -   `./urls.py` routes of the forum app API to provide endpoints for the client
 -   `./views.py` consists of different functions to build the API  
@@ -78,19 +78,19 @@ venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-Navigate to ...\GaRex-Sneakorum\forum-react-app directory and build react.
+Navigate to ...\GaRex-Sneakorum\forum-react-app directory and start react on localhost:3000.
 ```
-npm run build
+npm start
 ```
 
 Once the build folder has been created, copy this build folder and replace the build folder under ...\GaRex-Sneakorum\newstatic 
 This is because the django app will look for the static files under newstatic folder, so make sure you replace this build folder. 
 
-Navigate to ...\GaRex-Sneakorum directory and run python server
+Navigate to ...\GaRex-Sneakorum directory and run python server on localhost:8000
 ```
 python manage.py runserver
 
-The application will be available on http://127.0.0.1:8000/
+The application will be available on http://127.0.0.1:3000/
 ```
 
 
