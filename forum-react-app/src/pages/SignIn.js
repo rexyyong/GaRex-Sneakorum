@@ -34,6 +34,14 @@ const SignIn = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    setSubmitted(true); // Set submitted to true when the form is submitted
+
+    // Check if the fields are empty before submitting the form
+    if (username.trim() === '' || password.trim() === '') {
+      return; // Exit early if fields are empty
+    }
+
     // Create an object with the form data
     const csrfToken = await fetchCsrfToken();
     const formData = {
@@ -60,11 +68,12 @@ const SignIn = () => {
         localStorage.setItem('username', receivedUsername);
         console.log('Login successful');
         await fetch('https://garexsneakorum.onrender.com/test', {
-        credentials: 'include',
-         headers: {
+          credentials: 'include',
+          headers: {
             'Content-Type': 'application/json',
             'X-CSRFToken': csrfToken,
-          },});
+          },
+        });
         navigate('/home'); // Redirect to the dashboard page
       } else {
         // Handle failed login
@@ -108,7 +117,7 @@ const SignIn = () => {
                 placeholder="Username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                // required
+              // required
               />
               {/* Display validation message for username */}
               {submitted && username.trim() === '' && (
@@ -124,7 +133,7 @@ const SignIn = () => {
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                // required
+              // required
               />
               {/* Display validation message for password */}
               {submitted && password.trim() === '' && (
@@ -137,11 +146,11 @@ const SignIn = () => {
               </button>
             </div>
             <div>
-              <Snackbar 
-              open={wrongPasswordAlert} 
-              autoHideDuration={5000}
-              onClose={handleCloseAlert}
-              anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+              <Snackbar
+                open={wrongPasswordAlert}
+                autoHideDuration={5000}
+                onClose={handleCloseAlert}
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
               >
                 <Alert onClose={handleCloseAlert} severity="warning">
                   Please key in the correct username/password!
