@@ -1,4 +1,4 @@
-# GaRex-Sneakorum
+# GaRex-Sneakorum (Main branch is rex-production-test , because we made some branching errors)
 Repository for Garex Sneakorum. Done by Gareth Yeo and Rex Yong as part of NUS orbital project. (Deployed code is on rex-production-test)
 
 ## Description 
