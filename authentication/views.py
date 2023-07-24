@@ -96,6 +96,8 @@ def test(request):
     # print('testing...')
     # print(request.session.session_key)
     # print(vars(request.user))
+    if request.user.is_authenticated:
+        print(vars(request.user))
     if request.session.session_key:
         #     print(request.session.session_key)
         return JsonResponse({'sessionData': request.session.session_key})
