@@ -1,5 +1,5 @@
 # GaRex-Sneakorum
-Repository for Garex Sneakorum. Done by Gareth Yeo and Rex Yong as part of NUS orbital project. 
+Repository for Garex Sneakorum. Done by Gareth Yeo and Rex Yong as part of NUS orbital project. (Deployed code is on rex-production-test)
 
 ## Description 
 Garex Sneakorum is built using DJango and React.js. So far, the web application only allows users to log in, access the sneaker forum page to add and view threads. 
