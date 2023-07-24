@@ -13,15 +13,13 @@ const SignIn = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const [sessionData, setSessionData] = useState(null);
   const [wrongPasswordAlert, setPasswordAlert] = useState(false);
-  let csrfToken;
 
   const fetchCsrfToken = async () => {
     try {
       const response = await fetch('https://garexsneakorum.onrender.com/get-csrf-token');
       const data = await response.json();
-      const csrfToken = data.csrfToken;
+      return data.csrfToken;
       // Use the csrfToken in your subsequent fetch requests
     } catch (error) {
       console.error('Error fetching CSRF token:', error);
@@ -32,7 +30,7 @@ const SignIn = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Create an object with the form data
-    await fetchCsrfToken();
+    const csrfToken = await fetchCsrfToken();
     const formData = {
       username: username,
       password: password
@@ -52,6 +50,12 @@ const SignIn = () => {
       if (response.ok) {
         // Handle successful login
         console.log('Login successful');
+        await fetch('https://garexsneakorum.onrender.com/test', {
+        credentials: 'include',
+         headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken,
+          },});
         navigate('/home'); // Redirect to the dashboard page
       } else {
         // Handle failed login
