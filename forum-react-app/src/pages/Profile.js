@@ -6,6 +6,7 @@ import GarexNavbar from '../components/GarexNavbar';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import Container from '@mui/material/Container'
+
 import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
@@ -58,6 +59,7 @@ const Profile = () => {
             <div className="vh-100 gradient-custom">
                 <div>
                     <GarexSneakorumLogo />
+
                     <h3>Hello {username}</h3>
                     <h4>You are successfully logged in</h4>
                     <button onClick={handleLogout}>Logout</button>
