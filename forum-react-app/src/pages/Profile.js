@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import Container from '@mui/material/Container';
 import InfiniteScroll from 'react-infinite-scroll-component';
+
 import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {

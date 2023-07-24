@@ -9,11 +9,16 @@ import { Snackbar } from '@mui/material';
 
 import './SignIn.css'
 
+import './SignIn.css'
+
 const SignIn = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [submitted, setSubmitted] = useState(false); // State to track form submission
+
   const navigate = useNavigate();
   const [wrongPasswordAlert, setPasswordAlert] = useState(false);
+
 
   const fetchCsrfToken = async () => {
     try {
@@ -85,37 +90,49 @@ const SignIn = () => {
         <title>{pageTitle}</title>
       </Helmet>
       <div className="vh-100 gradient-custom">
+        <div>
+          <GarexSneakorumLogo />
+          <h1 style={{ textAlign: "center" }}>Welcome to Garex's Sneakorum!</h1>
+        </div>
 
-        <GarexSneakorumLogo />
-        <h1 style={{ textAlign: "center" }}>Welcome to Garex's Sneakorum!</h1>
 
         <div className="login-form">
-          <form onSubmit={handleSubmit}>
-            <h2 className="text-center">Log in</h2>
+          <form data-testid="login-form" onSubmit={handleSubmit}>
+            <h2 data-testid='login-text' className="text-center">Log in</h2>
             <div className="form-group">
               <input
+                data-testid='username-input'
                 type="text"
                 name="username"
                 className="form-control"
                 placeholder="Username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                required
+                // required
               />
+              {/* Display validation message for username */}
+              {submitted && username.trim() === '' && (
+                <div className="error-message">Please fill in the username field.</div>
+              )}
             </div>
             <div className="form-group">
               <input
+                data-testid='password-input'
                 type="password"
                 name="password"
                 className="form-control"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                required
+                // required
               />
+              {/* Display validation message for password */}
+              {submitted && password.trim() === '' && (
+                <div className="error-message">Please fill in the password field.</div>
+              )}
             </div>
             <div className="form-group">
-              <button type="submit" className="btn btn-primary btn-block">
+              <button data-testid='login-button' type="submit" className="btn btn-primary btn-block">
                 Log in
               </button>
             </div>
