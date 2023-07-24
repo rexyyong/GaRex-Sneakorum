@@ -49,6 +49,10 @@ const SignIn = () => {
 
       if (response.ok) {
         // Handle successful login
+        const responseData = await response.json();
+        const receivedUsername = responseData.username; // Get the username from the response
+        // Store the received username in local storage
+        localStorage.setItem('username', receivedUsername);
         console.log('Login successful');
         await fetch('https://garexsneakorum.onrender.com/test', {
         credentials: 'include',

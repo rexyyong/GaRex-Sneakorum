@@ -65,7 +65,7 @@ def signin(request):
             # for key in request.session.keys():
             #     print(key)
             print("signin says user is authenticated")
-            return JsonResponse({'message': 'Login successful'}, status=200)
+            return JsonResponse({'message': 'Login successful', 'username': username}, status=200)
     else:
         return JsonResponse({'message': 'Login unsuccessful'}, status=300)
 
