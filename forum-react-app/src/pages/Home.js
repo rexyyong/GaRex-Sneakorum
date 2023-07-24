@@ -79,7 +79,7 @@ const Home = () => {
         <button onClick={handleLogout}>Logout</button>
         <GarexNavbar />
 
-        <div className="shoeDrops">
+        {/* <div className="shoeDrops">
           <h1>Latest Models</h1>
           <img
             src="https://drive.google.com/uc?id=1EAvU9vTKAorClBsnNQ86zRiyBAqwZEfb"
@@ -89,7 +89,7 @@ const Home = () => {
           />
           <h2 style={{ marginBottom: '-15px' }}>Nike MotherFly Model 2</h2>
           <h2>$6969</h2>
-        </div>
+        </div> */}
         <Calendar />
       </div>
     </>
