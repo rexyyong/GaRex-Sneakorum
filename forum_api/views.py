@@ -35,11 +35,13 @@ def getThread(request, thread_id):
 @api_view(['POST'])
 def createThread(request):
     data = request.data
+    user = data['user']
     subject = data['subject']
     content = data['content']
     new_thread = Thread.objects.create(
         subject=subject,
-        content=content
+        content=content,
+        user=user
     )
     serializer = ThreadSerializer(new_thread)
     return Response(serializer.data)
@@ -95,4 +97,16 @@ def searchThread(request, query):
     serializer = ThreadSerializer(result_page, many=True)
 
     return paginator.get_paginated_response(serializer.data)
+
+@api_view(['GET'])
+def profile(request, username):
+    try:
+        # Filter threads by username
+        threads = Thread.objects.filter(user__username=username)
+        serializer = ThreadSerializer(threads, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except Thread.DoesNotExist:
+        return Response({'message': 'No threads found for this username'}, status=status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        return Response({'message': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 

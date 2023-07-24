@@ -92,6 +92,7 @@ const ForumHome = () => {
       .then(response => {
         if (response.ok) {
           // Handle successful sign out
+          localStorage.removeItem('username');
           console.log('Sign out successful');
           navigate('/signin');
         } else {

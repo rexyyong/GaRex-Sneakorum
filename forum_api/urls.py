@@ -8,4 +8,5 @@ urlpatterns = [
     path('createComment/', views.createComment, name='createComment'),
     path('threads/<int:thread_id>/comments', views.getComments, name='comments'),
     path('search/<str:query>', views.searchThread, name='search'),
+    path('forum_api/profile/<str:username>/', views.profile, name='profile'),
 ]
