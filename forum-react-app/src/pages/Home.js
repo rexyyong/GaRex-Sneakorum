@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet';
 import GarexSneakorumLogo from '../components/GarexSneakorumLogo';
 import GarexNavbar from '../components/GarexNavbar';
 import { useNavigate } from 'react-router-dom';
+import Calendar from '../components/Calendar';
 
 import './Home.css';
 
@@ -89,6 +90,7 @@ const Home = () => {
           <h2 style={{ marginBottom: '-15px' }}>Nike MotherFly Model 2</h2>
           <h2>$6969</h2>
         </div>
+        <Calendar />
       </div>
     </>
   );
