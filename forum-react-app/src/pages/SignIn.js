@@ -14,6 +14,7 @@ const SignIn = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const [wrongPasswordAlert, setPasswordAlert] = useState(false);
+  const [submitted, setSubmitted] = useState(false); // State to track form submission
 
   const fetchCsrfToken = async () => {
     try {
