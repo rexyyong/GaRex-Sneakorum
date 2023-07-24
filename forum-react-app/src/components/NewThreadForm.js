@@ -26,7 +26,6 @@ const NewThreadForm = ({ handleNewThread }) => {
   const [thread, setThread] = useState({
     subject: "",
     content: "",
-    user: "" // Initialize with an empty string
   });
 
   const handleOpen = () => {
@@ -37,7 +36,6 @@ const NewThreadForm = ({ handleNewThread }) => {
     setOpen(false);
   };
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log('Subject:', thread.subject);
@@ -46,18 +44,12 @@ const NewThreadForm = ({ handleNewThread }) => {
     setThread({
       subject: "",
       content: "",
-      user: "" // Initialize with an empty string
     });
     handleClose();
   };
 
   const handleThread = async (event) => {
     event.preventDefault();
-    const storedUsername = localStorage.getItem('username');
-    setThread((prevThread) => ({
-      ...prevThread,
-      user: storedUsername // Set the username in the thread state
-    }));
     const csrftoken = Cookies.get('csrftoken');
     const response = await fetch('https://garexsneakorum.onrender.com/forum_api/createThread/', {
       method: "POST",
@@ -71,12 +63,10 @@ const NewThreadForm = ({ handleNewThread }) => {
     setThread({
       subject: "",
       content: "",
-      user: "" // Initialize with an empty string
     });
     handleClose();
     handleNewThread();
   };
-
 
   return (
     <div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import GarexSneakorumLogo from '../components/GarexSneakorumLogo';
 import GarexNavbar from '../components/GarexNavbar';
@@ -16,12 +16,6 @@ const AboutUs = () => {
 
     const pageTitle = "Garex Sneakorum About Us Page";
 
-    useEffect(() => {
-        // Retrieve the username from local storage
-        const storedUsername = localStorage.getItem('username');
-        setUsername(storedUsername);
-    }, []);
-
     const handleLogout = () => {
         // Make API request to sign out
         fetch('https://garexsneakorum.onrender.com/logout', {
@@ -36,7 +30,6 @@ const AboutUs = () => {
             .then(response => {
                 if (response.ok) {
                     // Handle successful sign out
-                    localStorage.removeItem('username');
                     console.log('Sign out successful');
                     navigate('/signin');
                 } else {

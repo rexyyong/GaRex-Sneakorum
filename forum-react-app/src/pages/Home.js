@@ -12,12 +12,6 @@ const Home = () => {
   const [username, setUsername] = useState('');
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // Retrieve the username from local storage
-    const storedUsername = localStorage.getItem('username');
-    setUsername(storedUsername);
-  }, []);
-
   const fetchCsrfToken = async () => {
     try {
       const response = await fetch('https://garexsneakorum.onrender.com/get-csrf-token');
@@ -71,7 +65,6 @@ useEffect(() => {
       .then(response => {
         if (response.ok) {
           // Handle successful sign out
-          localStorage.removeItem('username');
           console.log('Sign out successful');
           navigate('/signin');
         } else {
